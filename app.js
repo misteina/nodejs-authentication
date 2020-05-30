@@ -18,10 +18,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //routes
-app.get('/', (req, res) => require('./routes/sign-up')(req, res));
-app.get('/verify-email/:token', (req, res) => require('./routes/verfiy-email')(req, res));
-app.all('/sign-up', (req, res) => require('./routes/sign-up')(req, res));
-app.all('/login', (req, res) => require('./routes/login')(req, res));
+app.post('/sign-up', require('./routes/sign-up'));
+app.post('/login', require('./routes/login'));
+app.post('/verify-email/:token', require('./routes/verfiy-email'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
