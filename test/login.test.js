@@ -1,4 +1,4 @@
-const assert = require('chai').assert;
+/*const assert = require('chai').assert;
 const axios = require('axios');
 
 describe('Login Tests', () => {
@@ -15,7 +15,6 @@ describe('Login Tests', () => {
             });
             assert("success" in response.data, 'failed');
         } catch (error) {
-            console.log(error.response.data);
             assert(false, error.response.data);
         }
     });
@@ -33,7 +32,6 @@ describe('Login Tests', () => {
             });
             assert("error" in response.data, 'failed');
         } catch (error) {
-            console.log(error.response.data);
             assert(false, error.response.data);
         }
     });
@@ -51,7 +49,6 @@ describe('Login Tests', () => {
             });
             assert("error" in response.data, 'failed');
         } catch (error) {
-            console.log(error.response.data);
             assert(false, error.response.data);
         }
     });
@@ -72,4 +69,4 @@ describe('Login Tests', () => {
             assert(false, error.response.data);
         }
     });
-});
+});*/

@@ -1,36 +1,52 @@
 module.exports = function (req, res) {
-    if (req.method === 'GET') {
-        res.render('login', function (err, html) {
-            res.send(html);
-        });
-    } else if (req.method === 'POST') {
-        const email = req.body.name;
-        const password = req.body.password;
+    const name = req.body.name;
+    const email = req.body.email;
+    const password = req.body.password;
+    const verifyPassword = req.body.verifyPassword;
 
-        const validateEmail = require('email-validator');
-        const passwordLength = password.trim().length;
+    const validateEmail = require('email-validator');
+    const passwordLength = password.trim().length;
 
-        if (validateEmail.validate(email) && passwordLength > 3 && passwordLength < 21) {
+    if (validateEmail.validate(email) && passwordLength > 3 && passwordLength < 21 && password === verifyPassword) {
+        const testMode = req.header('Test-Mode');
+        const file = (typeof testMode === 'undefined') ? './database/db.json' :'./database/test.db.json';
+        
+        const fs = require('fs');
+        let database = JSON.parse(fs.readFileSync(file, 'utf8'));
+
+        if (!(email in database)){
             const bcrypt = require('bcrypt');
 
+            const crypto = require("crypto");
+
+            let cipher = crypto.createCipher('aes-128-cbc', '85jr7f78f');
+            let token = cipher.update(email, 'utf8', 'hex');
+            token += cipher.final('hex');
+
             bcrypt.hash(password, 10, function (err, hash) {
+                database[email] = {name: name, password: hash, verified: token};
+
                 const fs = require('fs');
-                const database = JSON.parse(fs.readFileSync('../database/db.json', 'utf8'));
+                try {
+                    fs.writeFileSync(file, database.join(','), 'utf-8');
 
-                database[email] = hash;
-
-                fs.writeFileSync('../database/db.json', database.join(','), 'utf-8');
-
-                res.render('success', { success: "You have been logged In" }, function (err, html) {
-                    res.send(html);
-                });
+                    if (typeof testMode !== 'undefined') {
+                        database = JSON.parse(fs.readFileSync(file, 'utf8'));
+                        if (database[email].password === hash && database[email].name === name && database[email].verified === token){
+                            delete database[email];
+                            res.json({ success: "You have been successfully registered" });
+                        }
+                    } else {
+                        res.json({ success: "You have been successfully registered" });
+                    }
+                } catch (error) {
+                    res.json({ error: "An error was encountered" });
+                }
             });
         } else {
-            res.render('login', { error: "Email or password is not valid" }, function (err, html) {
-                res.send(html);
-            });
+            res.json({error: "You email already exists"});
         }
     } else {
-        res.direct('/');
+        res.json({ error: "Email or password is not valid" });
     }
 }

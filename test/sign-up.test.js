@@ -8,20 +8,20 @@ describe('Sign-up Tests', () => {
                 method: 'post',
                 url: 'http://localhost:3000/sign-up',
                 data: {
-                    name: 'Enyinna',
-                    email: 'enyinna@test.com',
+                    name: 'Susan',
+                    email: 'susan@test.com',
                     password: '75ty6756',
-                    verfiyPassword: '75ty6756'
+                    verifyPassword: '75ty6756'
                 },
                 headers: { 'Test-Mode': 'Yes' }
             });
             assert("success" in response.data, 'failed');
         } catch(error) {
-            assert(false, 'Node server not running');
+            assert(false, error.response.data);
         }
     });
 
-    it('Rejects invalid credentials', async () => {
+    it('Reject invalid credentials', async () => {
         try {
             let response = await axios({
                 method: 'post',
@@ -30,17 +30,17 @@ describe('Sign-up Tests', () => {
                     name: '#@*$%',
                     email: '05jtyy5',
                     password: '8uuytdd',
-                    verfiyPassword: ''
+                    verifyPassword: ''
                 },
                 headers: { 'Test-Mode': 'Yes' }
             });
             assert("error" in response.data, 'failed');
         } catch (error) {
-            assert(false, 'Node server not running');
+            assert(false, error.response.data);
         }
     });
 
-    it('Prevents duplicate sign-up', async () => {
+    it('Prevent duplicate sign-up', async () => {
         try {
             let = response = await axios({
                 method: 'post',
@@ -49,13 +49,13 @@ describe('Sign-up Tests', () => {
                     name: 'Enyinna',
                     email: 'enyinna@test.com',
                     password: '75ty6756',
-                    verfiyPassword: '75ty6756'
+                    verifyPassword: '75ty6756'
                 },
                 headers: { 'Test-Mode': 'Yes' }
             });
             assert("error" in response.data, 'failed');
         } catch (error) {
-            assert(false, 'Node server not running');
+            assert(false, error.response.data);
         }
     });
 });*/
