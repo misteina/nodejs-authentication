@@ -1,13 +1,13 @@
-const expect = require('chai').expect;
+/*const assert = require('chai').assert;
 
 const axios = require('axios');
 
-describe('Checking ability to sign-up...', () => {
-    it('Sign-up a new user', () => {
+describe('Email Verification Test', () => {
+    it('Accepts valid verification link', () => {
         let result = false;
         axios({
             method: 'post',
-            url: 'http://localhost:3000/sign-up',
+            url: 'http://localhost:3000/verify-email',
             data: {
                 name: 'Enyinna',
                 email: 'enyinna@test.com',
@@ -20,10 +20,10 @@ describe('Checking ability to sign-up...', () => {
         }).catch(function (error) {
             return;
         });
-        expect(result).to.be(true);
+        assert(result === true, 'failed');
     });
 
-    it('Rejects invalid credentials', () => {
+    it('Rejects invalid verification link', () => {
         let result = false;
         axios({
             method: 'post',
@@ -40,26 +40,6 @@ describe('Checking ability to sign-up...', () => {
         }).catch(function (error) {
             return;
         });
-        expect(result).to.be(true);
+        assert(result === true, 'failed');
     });
-
-    it('Prevents duplicate sign-up', () => {
-        let result = false;
-        axios({
-            method: 'post',
-            url: 'http://localhost:3000/sign-up',
-            data: {
-                name: 'Enyinna',
-                email: 'enyinna@test.com',
-                password: '75ty6756',
-                verfiyPassword: '75ty6756'
-            },
-            headers: { 'Test-Mode': 'Yes' }
-        }).then(function (response) {
-            result = response;
-        }).catch(function (error) {
-            return;
-        });
-        expect(result).to.be(true);
-    });
-});
+});*/
