@@ -23,7 +23,6 @@ app.get('/sign-up', (req, res) => res.render('index'));
 app.get('/login', (req, res) => res.render('index'));
 app.post('/sign-up', require('./routes/sign-up'));
 app.post('/login', require('./routes/login'));
-app.get('/verify-email', require('./routes/verify-email'));
 app.get('/verify-email/:token', require('./routes/verify-email'));
 
 // catch 404 and forward to error handler

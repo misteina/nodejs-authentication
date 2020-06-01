@@ -7,6 +7,6 @@
     "peter@test.com":{
         "name": "Peter",
         "password": "$2b$10$DU6BBVvwCnY.NKrcb3cjvOkug9P27Ukyel3PTUye49i55X9KxP9Y6",
-        "verified": "70664b32a9980691f936"
+        "verified": "no"
     }
 }

@@ -17,8 +17,11 @@ describe('Sign-up Tests', () => {
             });
             assert("success" in response.data, 'failed');
         } catch(error) {
-            console.log(error.response.data);
-            assert(false, 'Node server not running');
+            if (typeof error.response !== 'undefined') {
+                assert(false, error.response.data);
+            } else {
+                assert(false, 'Node server not running');
+            }
         }
     });
 
@@ -37,7 +40,11 @@ describe('Sign-up Tests', () => {
             });
             assert("error" in response.data, 'failed');
         } catch (error) {
-            assert(false, 'Node server not running');
+            if (typeof error.response !== 'undefined') {
+                assert(false, error.response.data);
+            } else {
+                assert(false, 'Node server not running');
+            }
         }
     });
 
@@ -56,7 +63,11 @@ describe('Sign-up Tests', () => {
             });
             assert("error" in response.data, 'failed');
         } catch (error) {
-            assert(false, 'Node server not running');
+            if (typeof error.response !== 'undefined') {
+                assert(false, error.response.data);
+            } else {
+                assert(false, 'Node server not running');
+            }
         }
     });
 });

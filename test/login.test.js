@@ -1,4 +1,4 @@
-/*const assert = require('chai').assert;
+const assert = require('chai').assert;
 const axios = require('axios');
 
 describe('Login Tests', () => {
@@ -15,7 +15,11 @@ describe('Login Tests', () => {
             });
             assert("success" in response.data, 'failed');
         } catch (error) {
-            assert(false, error.response.data);
+            if (typeof error.response !== 'undefined') {
+                assert(false, error.response.data);
+            } else {
+                assert(false, 'Node server not running');
+            }
         }
     });
 
@@ -32,7 +36,11 @@ describe('Login Tests', () => {
             });
             assert("error" in response.data, 'failed');
         } catch (error) {
-            assert(false, error.response.data);
+            if (typeof error.response !== 'undefined') {
+                assert(false, error.response.data);
+            } else {
+                assert(false, 'Node server not running');
+            }
         }
     });
 
@@ -49,7 +57,11 @@ describe('Login Tests', () => {
             });
             assert("error" in response.data, 'failed');
         } catch (error) {
-            assert(false, error.response.data);
+            if (typeof error.response !== 'undefined') {
+                assert(false, error.response.data);
+            } else {
+                assert(false, 'Node server not running');
+            }
         }
     });
 
@@ -66,7 +78,11 @@ describe('Login Tests', () => {
             });
             assert("error" in response.data, 'failed');
         } catch (error) {
-            assert(false, error.response.data);
+            if (typeof error.response !== 'undefined') {
+                assert(false, error.response.data);
+            } else {
+                assert(false, 'Node server not running');
+            }
         }
     });
-});*/
+});

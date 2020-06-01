@@ -16,15 +16,9 @@ module.exports = function (req, res) {
 
         if (!(email in database)){
             const bcrypt = require('bcrypt');
-            const crypto = require("crypto");
-
-            let cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from('4a4c00ed5a40c54ecd5785192dbe0d6c'), Buffer.from('4a4c00ed5a40c54e'));
-            let encrypted = cipher.update(email);
-            encrypted = Buffer.concat([encrypted, cipher.final()]);
-            let token = encrypted.toString('hex');
 
             bcrypt.hash(password, 10, function (err, hash) {
-                database[email] = {name: name, password: hash, verified: token};
+                database[email] = {name: name, password: hash, verified: "no"};
 
                 let written = false;
                 try {
@@ -37,6 +31,13 @@ module.exports = function (req, res) {
                 }
 
                 if (written && typeof testMode === 'undefined'){
+                    const crypto = require("crypto");
+
+                    let cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from('4a4c00ed5a40c54ecd5785192dbe0d6c'), Buffer.from('4a4c00ed5a40c54e'));
+                    let encrypted = cipher.update(email);
+                    encrypted = Buffer.concat([encrypted, cipher.final()]);
+                    let token = encrypted.toString('hex');
+                    
                     const nodemailer = require('nodemailer');
 
                     let transporter = nodemailer.createTransport({
