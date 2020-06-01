@@ -1,4 +1,4 @@
-/*const assert = require('chai').assert;
+const assert = require('chai').assert;
 const axios = require('axios');
 
 describe('Sign-up Tests', () => {
@@ -17,7 +17,8 @@ describe('Sign-up Tests', () => {
             });
             assert("success" in response.data, 'failed');
         } catch(error) {
-            assert(false, error.response.data);
+            console.log(error.response.data);
+            assert(false, 'Node server not running');
         }
     });
 
@@ -36,7 +37,7 @@ describe('Sign-up Tests', () => {
             });
             assert("error" in response.data, 'failed');
         } catch (error) {
-            assert(false, error.response.data);
+            assert(false, 'Node server not running');
         }
     });
 
@@ -55,7 +56,7 @@ describe('Sign-up Tests', () => {
             });
             assert("error" in response.data, 'failed');
         } catch (error) {
-            assert(false, error.response.data);
+            assert(false, 'Node server not running');
         }
     });
-});*/
+});

@@ -6,9 +6,11 @@ module.exports = function (req, res) {
 
     const crypto = require("crypto");
 
-    let decipher = crypto.createDecipher('aes-128-cbc', "85jr7f78f");
-    let email = decipher.update(token, 'hex', 'utf8');
-    email += decipher.final('utf8');
+    let encryptedText = Buffer.from(token, 'hex');
+    let decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from('4a4c00ed5a40c54ecd5785192dbe0d6c'), Buffer.from('4a4c00ed5a40c54e'));
+    let decrypted = decipher.update(encryptedText);
+    decrypted = Buffer.concat([decrypted, decipher.final()]);
+    let email = decrypted.toString();
 
     const fs = require('fs');
     let database = JSON.parse(fs.readFileSync(file, 'utf8'));
