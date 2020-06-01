@@ -1,13 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title>Authentication Demo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin></script>
-    <link rel='stylesheet' href="/css/ui.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel='stylesheet' href="/style/ui.css" />
   </head>
   <body>
-    <div id="root">hellooo</div>
+    <div id="root" class="container-fluid">
+        <div class="sbox">
+            <div class="ftitle">Sign In</div>
+            <form action="/action_page.php">
+                <div class="form-group">
+                    <label for="email">Email address:</label>
+                    <input type="email" class="form-control" placeholder="Enter email" id="email">
+                </div>
+                <div class="form-group">
+                    <label for="pwd">Password:</label>
+                    <input type="password" class="form-control" placeholder="Enter password" id="pwd">
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+        </div>
+    </div>
     <script src="/js/ui.js"></script>
   </body>
 </html>
