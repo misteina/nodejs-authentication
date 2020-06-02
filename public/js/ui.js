@@ -17,98 +17,214 @@ function App() {
 
 function SignUp() {
     var passwordRef = React.useRef();
+    var formRef = React.useRef();
 
-    var _React$useState = React.useState({ nameError: '', emailError: '', passwordError: '' }),
+    var _React$useState = React.useState({
+        success: null,
+        error: ''
+    }),
         _React$useState2 = _slicedToArray(_React$useState, 2),
-        inputs = _React$useState2[0],
-        setInputsError = _React$useState2[1];
+        response = _React$useState2[0],
+        setResponse = _React$useState2[1];
+
+    var _React$useState3 = React.useState({
+        formError: '',
+        nameError: '',
+        emailError: '',
+        passwordError: '',
+        checkErrors: [1, 1, 1]
+    }),
+        _React$useState4 = _slicedToArray(_React$useState3, 2),
+        inputs = _React$useState4[0],
+        setInputsError = _React$useState4[1];
 
     var validateInput = function validateInput(e) {
         var inputValue = e.target.value;
         var inputField = e.target.id;
 
-        if (inputField === 'name' && (!/^[a-zA-Z ]+$/.test(inputValue) || inputValue.trim().length < 2 || inputValue.trim().length > 50)) {
-            setInputsError(function (inputs) {
-                return Object.assign({}, inputs, { nameError: 'Your name is invalid' });
-            });
-        } else if (inputField === 'email' && !/\S+@\S+\.\S+/.test(inputValue)) {
-            setInputsError(function (inputs) {
-                return Object.assign({}, inputs, { emailError: 'Your email is invalid' });
-            });
-        } else if (inputField === 'pwd' && (inputField.trim().length > 20 || inputValue.trim().length < 3)) {
-            setInputsError(function (inputs) {
-                return Object.assign({}, inputs, { passwordError: 'Your password is invalid' });
-            });
-        } else if (inputField === 'vpwd' && inputValue !== passwordRef.current.value) {
-            setInputsError(function (inputs) {
-                return Object.assign({}, inputs, { passwordError: 'Your password is invalid' });
-            });
+        if (inputField === 'name') {
+            if (!/^[a-zA-Z ]+$/.test(inputValue) || inputValue.trim().length < 2 || inputValue.trim().length > 50) {
+                inputs.checkErrors[0] = 1;
+                setInputsError(function (inputs) {
+                    return Object.assign({}, inputs, { nameError: 'Your name is invalid', checkErrors: inputs.checkErrors });
+                });
+            } else {
+                inputs.checkErrors[0] = 0;
+                setInputsError(function (inputs) {
+                    return Object.assign({}, inputs, { nameError: '', checkErrors: inputs.checkErrors });
+                });
+            }
+        } else if (inputField === 'email') {
+            if (!/\S+@\S+\.\S+/.test(inputValue)) {
+                inputs.checkErrors[1] = 1;
+                setInputsError(function (inputs) {
+                    return Object.assign({}, inputs, { emailError: 'Your email is invalid', checkErrors: inputs.checkErrors });
+                });
+            } else {
+                inputs.checkErrors[1] = 0;
+                setInputsError(function (inputs) {
+                    return Object.assign({}, inputs, { emailError: '', checkErrors: inputs.checkErrors });
+                });
+            }
+        } else if (inputField === 'pwd') {
+            if (inputField.trim().length > 20 || inputValue.trim().length < 3) {
+                inputs.checkErrors[2] = 1;
+                setInputsError(function (inputs) {
+                    return Object.assign({}, inputs, { passwordError: 'Your password is invalid', checkErrors: inputs.checkErrors });
+                });
+            } else {
+                inputs.checkErrors[2] = 0;
+                setInputsError(function (inputs) {
+                    return Object.assign({}, inputs, { passwordError: '', checkErrors: inputs.checkErrors });
+                });
+            }
+        } else if (inputField === 'vpwd') {
+            if (inputValue !== passwordRef.current.value) {
+                inputs.checkErrors[2] = 1;
+                setInputsError(function (inputs) {
+                    return Object.assign({}, inputs, { passwordError: 'Your password is invalid', checkErrors: inputs.checkErrors });
+                });
+            } else {
+                inputs.checkErrors[2] = 0;
+                setInputsError(function (inputs) {
+                    return Object.assign({}, inputs, { passwordError: '', checkErrors: inputs.checkErrors });
+                });
+            }
         }
     };
     var submitForm = function submitForm(e) {
         e.preventDefault();
+        if (!inputs.checkErrors.includes(1)) {
+            fetch('http://localhost:3000/sign-up', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: new URLSearchParams(new FormData(formRef.current))
+            }).then(function (response) {
+                return response.json();
+            }).then(function (data) {
+                if ("success" in data) {
+                    setResponse(function (response) {
+                        return Object.assign({}, response, { success: data.success });
+                    });
+                } else if ("error" in data) {
+                    setResponse(function (response) {
+                        return Object.assign({}, response, { error: data.error });
+                    });
+                } else {
+                    setResponse(function (response) {
+                        return Object.assign({}, response, { error: "An error was encountered" });
+                    });
+                }
+            }).catch(function (error) {
+                setResponse(function (response) {
+                    return Object.assign({}, response, { error: "An error was encountered" });
+                });
+            });
+        } else {
+            setInputsError(function (inputs) {
+                return Object.assign({}, inputs, { formError: 'Please fill the form completely' });
+            });
+        }
     };
-    return React.createElement(
-        'div',
-        { className: 'sbox' },
-        React.createElement(
+    if (response.success === null) {
+        return React.createElement(
             'div',
-            { className: 'ftitle' },
-            'Sign Up'
-        ),
-        React.createElement(
-            'form',
-            { onSubmit: submitForm },
+            { className: 'sbox' },
             React.createElement(
                 'div',
-                { className: 'form-group' },
-                React.createElement(
-                    'label',
-                    { 'for': 'name' },
-                    'Your Name:'
-                ),
-                inputs.nameError,
-                React.createElement('input', { type: 'text', className: 'form-control', placeHolder: 'Enter name', id: 'name', onBlur: validateInput })
+                { className: 'ftitle' },
+                'Sign Up'
             ),
             React.createElement(
                 'div',
-                { className: 'form-group' },
-                React.createElement(
-                    'label',
-                    { 'for': 'email' },
-                    'Email address:'
-                ),
-                inputs.emailError,
-                React.createElement('input', { type: 'email', className: 'form-control', placeHolder: 'Enter email', id: 'email', onBlur: validateInput })
+                { className: 'error' },
+                inputs.formError
             ),
             React.createElement(
                 'div',
-                { className: 'form-group' },
-                React.createElement(
-                    'label',
-                    { 'for': 'pwd' },
-                    'Password:'
-                ),
-                inputs.passwordError,
-                React.createElement('input', { type: 'password', className: 'form-control', placeHolder: 'Enter password', id: 'pwd', ref: passwordRef, onBlur: validateInput })
+                { className: 'error' },
+                response.error
             ),
             React.createElement(
-                'div',
-                { className: 'form-group' },
+                'form',
+                { ref: formRef, onSubmit: submitForm },
                 React.createElement(
-                    'label',
-                    { 'for': 'vpwd' },
-                    'Password:'
+                    'div',
+                    { className: 'form-group' },
+                    React.createElement(
+                        'label',
+                        { 'for': 'name' },
+                        'Your Name:'
+                    ),
+                    React.createElement(
+                        'div',
+                        { className: 'error' },
+                        inputs.nameError
+                    ),
+                    React.createElement('input', { type: 'text', name: 'name', className: 'form-control', placeHolder: 'Enter name', id: 'name', onBlur: validateInput })
                 ),
-                React.createElement('input', { type: 'password', className: 'form-control', placeHolder: 'Enter password', id: 'vpwd', onBlur: validateInput })
-            ),
-            React.createElement(
-                'button',
-                { type: 'submit', className: 'btn btn-primary' },
-                'Login'
+                React.createElement(
+                    'div',
+                    { className: 'form-group' },
+                    React.createElement(
+                        'label',
+                        { 'for': 'email' },
+                        'Email address:'
+                    ),
+                    React.createElement(
+                        'div',
+                        { className: 'error' },
+                        inputs.emailError
+                    ),
+                    React.createElement('input', { type: 'email', name: 'email', className: 'form-control', placeHolder: 'Enter email', id: 'email', onBlur: validateInput })
+                ),
+                React.createElement(
+                    'div',
+                    { className: 'form-group' },
+                    React.createElement(
+                        'label',
+                        { 'for': 'pwd' },
+                        'Password:'
+                    ),
+                    React.createElement(
+                        'div',
+                        { className: 'error' },
+                        inputs.passwordError
+                    ),
+                    React.createElement('input', { type: 'password', name: 'password', className: 'form-control', placeHolder: 'Enter password', id: 'pwd', ref: passwordRef, onBlur: validateInput })
+                ),
+                React.createElement(
+                    'div',
+                    { className: 'form-group' },
+                    React.createElement(
+                        'label',
+                        { 'for': 'vpwd' },
+                        'Password:'
+                    ),
+                    React.createElement('input', { type: 'password', name: 'verifyPassword', className: 'form-control', placeHolder: 'Enter password', id: 'vpwd', onBlur: validateInput })
+                ),
+                React.createElement(
+                    'button',
+                    { type: 'submit', className: 'btn btn-primary' },
+                    'Sign Up'
+                )
             )
-        )
-    );
+        );
+    } else {
+        return React.createElement(
+            'div',
+            { className: 'alert alert-success' },
+            React.createElement(
+                'strong',
+                null,
+                'Success!'
+            ),
+            ' ',
+            response.success
+        );
+    }
 }
 
 function VerifyEmail() {

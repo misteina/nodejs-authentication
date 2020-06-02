@@ -13,23 +13,23 @@ module.exports = function (req, res) {
         
         const fs = require('fs');
         let database = JSON.parse(fs.readFileSync(file, 'utf8'));
-
+        
         if (!(email in database)){
             const bcrypt = require('bcrypt');
-
+            
             bcrypt.hash(password, 10, function (err, hash) {
                 database[email] = {name: name, password: hash, verified: "no"};
 
                 let written = false;
                 try {
                     if (typeof testMode === 'undefined'){
-                        fs.writeFileSync(file, database.join(','), 'utf-8');
+                        //fs.writeFileSync(file, JSON.stringify(database));
                         written = true;
                     }
                 } catch (error) {
                     res.json({ error: "An error was encountered" });
                 }
-
+                
                 if (written && typeof testMode === 'undefined'){
                     const crypto = require("crypto");
 
@@ -38,29 +38,33 @@ module.exports = function (req, res) {
                     encrypted = Buffer.concat([encrypted, cipher.final()]);
                     let token = encrypted.toString('hex');
                     
-                    const nodemailer = require('nodemailer');
+                    try {
+                        /*const nodemailer = require('nodemailer');
 
-                    let transporter = nodemailer.createTransport({
-                        service: 'gmail',
-                        auth: {
-                            user: 'authtest@gmail.com',
-                            pass: 'dhg75yd7f57'
-                        }
-                    });
+                        let transporter = nodemailer.createTransport({
+                            service: 'gmail',
+                            auth: {
+                                user: 'auth.testing.0001@gmail.com',
+                                pass: 'dhg75yd7f57'
+                            }
+                        });
 
-                    let mailOptions = {
-                        from: 'authtest@gmail.com',
-                        to: email,
-                        subject: 'You have been registered',
-                        text: `Hello ${name}, thank you for your registration. Please click on the following link to verify your email address http://localhost:3000/verify-email/${token}`
-                    };
+                        let mailOptions = {
+                            from: 'auth.testing.0001@gmail.com',
+                            to: email,
+                            subject: 'You have been registered',
+                            text: `Hello ${name}, thank you for your registration. Please click on the following link to verify your email address http://localhost:3000/verify-email/${token}`
+                        };
 
-                    transporter.sendMail(mailOptions, function (error, info) {
-                        if (error) {
-                            console.log(error);
-                        }
-                    });
-                    res.json({ success: "You have been successfully registered" });
+                        transporter.sendMail(mailOptions, function (error, info) {
+                            if (error) {
+                                console.log(error);
+                            }
+                        });*/
+                        res.json({ success: "You have been successfully registered. Verify your email address and login" });
+                    } catch (error) {
+                        res.json({ error: error });
+                    }
                 } else if (!written && typeof testMode !== 'undefined'){
                     res.json({ success: "You have been successfully registered" });
                 }
