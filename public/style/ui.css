@@ -2,6 +2,9 @@ html, body{
     padding: 0;
     margin: 0;
 }
+label{
+    font-size: 14px;
+}
 .sbox{
     width: 400px;
     min-width: 300px;
