@@ -95,33 +95,7 @@ function SignUp() {
     var submitForm = function submitForm(e) {
         e.preventDefault();
         if (!inputs.checkErrors.includes(1)) {
-            fetch('http://localhost:3000/sign-up', {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded"
-                },
-                body: new URLSearchParams(new FormData(formRef.current))
-            }).then(function (response) {
-                return response.json();
-            }).then(function (data) {
-                if ("success" in data) {
-                    setResponse(function (response) {
-                        return Object.assign({}, response, { success: data.success });
-                    });
-                } else if ("error" in data) {
-                    setResponse(function (response) {
-                        return Object.assign({}, response, { error: data.error });
-                    });
-                } else {
-                    setResponse(function (response) {
-                        return Object.assign({}, response, { error: "An error was encountered" });
-                    });
-                }
-            }).catch(function (error) {
-                setResponse(function (response) {
-                    return Object.assign({}, response, { error: "An error was encountered" });
-                });
-            });
+            postData('http://localhost:3000/sign-up', formRef, setResponse);
         } else {
             setInputsError(function (inputs) {
                 return Object.assign({}, inputs, { formError: 'Please fill the form completely' });
@@ -247,44 +221,168 @@ function VerifyEmail() {
 }
 
 function Login() {
-    return React.createElement(
-        'div',
-        { className: 'sbox' },
-        React.createElement(
+    var formRef = React.useRef();
+
+    var _React$useState5 = React.useState({
+        success: null,
+        error: ''
+    }),
+        _React$useState6 = _slicedToArray(_React$useState5, 2),
+        response = _React$useState6[0],
+        setResponse = _React$useState6[1];
+
+    var _React$useState7 = React.useState({
+        formError: '',
+        emailError: '',
+        passwordError: '',
+        checkErrors: [1, 1]
+    }),
+        _React$useState8 = _slicedToArray(_React$useState7, 2),
+        inputs = _React$useState8[0],
+        setInputsError = _React$useState8[1];
+
+    var validateInput = function validateInput(e) {
+        var inputValue = e.target.value;
+        var inputField = e.target.id;
+
+        if (inputField === 'email') {
+            if (!/\S+@\S+\.\S+/.test(inputValue)) {
+                inputs.checkErrors[0] = 1;
+                setInputsError(function (inputs) {
+                    return Object.assign({}, inputs, { emailError: 'Your email is invalid', checkErrors: inputs.checkErrors });
+                });
+            } else {
+                inputs.checkErrors[0] = 0;
+                setInputsError(function (inputs) {
+                    return Object.assign({}, inputs, { emailError: '', checkErrors: inputs.checkErrors });
+                });
+            }
+        } else if (inputField === 'pwd') {
+            if (inputField.trim().length > 20 || inputValue.trim().length < 3) {
+                inputs.checkErrors[1] = 1;
+                setInputsError(function (inputs) {
+                    return Object.assign({}, inputs, { passwordError: 'Your password is invalid', checkErrors: inputs.checkErrors });
+                });
+            } else {
+                inputs.checkErrors[1] = 0;
+                setInputsError(function (inputs) {
+                    return Object.assign({}, inputs, { passwordError: '', checkErrors: inputs.checkErrors });
+                });
+            }
+        }
+    };
+    var submitForm = function submitForm(e) {
+        e.preventDefault();
+        if (!inputs.checkErrors.includes(1)) {
+            postData('http://localhost:3000/login', formRef, setResponse);
+        } else {
+            setInputsError(function (inputs) {
+                return Object.assign({}, inputs, { formError: 'Please fill the form completely' });
+            });
+        }
+    };
+    if (response.success === null) {
+        return React.createElement(
             'div',
-            { className: 'ftitle' },
-            'Login'
-        ),
-        React.createElement(
-            'form',
-            null,
+            { className: 'sbox' },
             React.createElement(
                 'div',
-                { className: 'form-group' },
-                React.createElement(
-                    'label',
-                    { 'for': 'email' },
-                    'Email address:'
-                ),
-                React.createElement('input', { type: 'email', className: 'form-control', placeHolder: 'Enter email', id: 'email' })
-            ),
-            React.createElement(
-                'div',
-                { className: 'form-group' },
-                React.createElement(
-                    'label',
-                    { 'for': 'pwd' },
-                    'Password:'
-                ),
-                React.createElement('input', { type: 'password', className: 'form-control', placeHolder: 'Enter password', id: 'pwd' })
-            ),
-            React.createElement(
-                'button',
-                { type: 'submit', className: 'btn btn-primary' },
+                { className: 'ftitle' },
                 'Login'
+            ),
+            React.createElement(
+                'form',
+                { ref: formRef, onSubmit: submitForm },
+                React.createElement(
+                    'div',
+                    { className: 'error' },
+                    inputs.formError
+                ),
+                React.createElement(
+                    'div',
+                    { className: 'error' },
+                    inputs.emailError
+                ),
+                React.createElement(
+                    'div',
+                    { className: 'error' },
+                    inputs.passwordError
+                ),
+                React.createElement(
+                    'div',
+                    { className: 'error' },
+                    response.error
+                ),
+                React.createElement(
+                    'div',
+                    { className: 'form-group' },
+                    React.createElement(
+                        'label',
+                        { 'for': 'email' },
+                        'Email address:'
+                    ),
+                    React.createElement('input', { type: 'email', className: 'form-control', name: 'email', placeHolder: 'Enter email', id: 'email', onBlur: validateInput })
+                ),
+                React.createElement(
+                    'div',
+                    { className: 'form-group' },
+                    React.createElement(
+                        'label',
+                        { 'for': 'pwd' },
+                        'Password:'
+                    ),
+                    React.createElement('input', { type: 'password', className: 'form-control', name: 'password', placeHolder: 'Enter password', id: 'pwd', onBlur: validateInput })
+                ),
+                React.createElement(
+                    'button',
+                    { type: 'submit', className: 'btn btn-primary' },
+                    'Login'
+                )
             )
-        )
-    );
+        );
+    } else {
+        return React.createElement(
+            'div',
+            { className: 'alert alert-success' },
+            React.createElement(
+                'strong',
+                null,
+                'Success!'
+            ),
+            ' ',
+            response.success
+        );
+    }
+}
+
+function postData(url, formRef, setResponse) {
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: new URLSearchParams(new FormData(formRef.current))
+    }).then(function (response) {
+        return response.json();
+    }).then(function (data) {
+        if ("success" in data) {
+            setResponse(function (response) {
+                return Object.assign({}, response, { success: data.success });
+            });
+        } else if ("error" in data) {
+            setResponse(function (response) {
+                return Object.assign({}, response, { error: data.error });
+            });
+        } else {
+            setResponse(function (response) {
+                return Object.assign({}, response, { error: "An error was encountered" });
+            });
+        }
+    }).catch(function (error) {
+        setResponse(function (response) {
+            return Object.assign({}, response, { error: "An error was encountered" });
+        });
+    });
 }
 
 ReactDOM.render(React.createElement(App, null), document.getElementById('root'));
