@@ -27,7 +27,7 @@ module.exports = function (req, res) {
                 res.json({ error: "Your email is not yet verified" });
             }
         } else {
-            res.json({ error: "Your email or password is not valid" });
+            res.json({ error: "Your are not registered" });
         }
     } else {
         res.json({ error: "Your email or password is not valid" });

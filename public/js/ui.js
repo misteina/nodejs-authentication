@@ -4,39 +4,50 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
 var pathName = location.pathname.split('/')[1];
 
-var pages = {
-    "sign-up": SignUp,
-    "verify-email": VerifyEmail,
-    "login": Login
-};
-
 function App() {
-    var Page = pages[pathName];
-    return React.createElement(Page, null);
+    var _React$useState = React.useState(pathName),
+        _React$useState2 = _slicedToArray(_React$useState, 2),
+        currentPage = _React$useState2[0],
+        setCurrentPage = _React$useState2[1];
+
+    var pages = {
+        "sign-up": SignUp,
+        "verify-email": VerifyEmail,
+        "login": Login
+    };
+
+    var navigate = function navigate(link) {
+        setCurrentPage(link);
+    };
+
+    if (currentPage in pages) {
+        var Page = pages[currentPage];
+        return React.createElement(Page, { goTo: navigate });
+    }
 }
 
 function SignUp() {
     var passwordRef = React.useRef();
     var formRef = React.useRef();
 
-    var _React$useState = React.useState({
+    var _React$useState3 = React.useState({
         success: null,
         error: ''
     }),
-        _React$useState2 = _slicedToArray(_React$useState, 2),
-        response = _React$useState2[0],
-        setResponse = _React$useState2[1];
+        _React$useState4 = _slicedToArray(_React$useState3, 2),
+        response = _React$useState4[0],
+        setResponse = _React$useState4[1];
 
-    var _React$useState3 = React.useState({
+    var _React$useState5 = React.useState({
         formError: '',
         nameError: '',
         emailError: '',
         passwordError: '',
         checkErrors: [1, 1, 1]
     }),
-        _React$useState4 = _slicedToArray(_React$useState3, 2),
-        inputs = _React$useState4[0],
-        setInputsError = _React$useState4[1];
+        _React$useState6 = _slicedToArray(_React$useState5, 2),
+        inputs = _React$useState6[0],
+        setInputsError = _React$useState6[1];
 
     var validateInput = function validateInput(e) {
         var inputValue = e.target.value;
@@ -95,7 +106,7 @@ function SignUp() {
     var submitForm = function submitForm(e) {
         e.preventDefault();
         if (!inputs.checkErrors.includes(1)) {
-            postData('http://localhost:3000/sign-up', formRef, setResponse);
+            postData('http://localhost:3000/sign-up', new FormData(formRef.current), setResponse);
         } else {
             setInputsError(function (inputs) {
                 return Object.assign({}, inputs, { formError: 'Please fill the form completely' });
@@ -201,45 +212,82 @@ function SignUp() {
     }
 }
 
-function VerifyEmail() {
-    return React.createElement(
-        'div',
-        { className: 'alert alert-success' },
-        React.createElement(
-            'strong',
-            null,
-            'Success!'
-        ),
-        ' Your email has been verified. Click ',
-        React.createElement(
-            'a',
-            { href: '/login', className: 'alert-link' },
-            'here'
-        ),
-        ' to login.'
-    );
+function VerifyEmail(props) {
+    var token = location.pathname.split('/')[2];
+
+    var _React$useState7 = React.useState({
+        success: null,
+        error: ''
+    }),
+        _React$useState8 = _slicedToArray(_React$useState7, 2),
+        response = _React$useState8[0],
+        setResponse = _React$useState8[1];
+
+    if (typeof token !== 'undefined') {
+        var formData = new FormData();
+        formData.append('token', token);
+
+        postData('http://localhost:3000/verify-email', formData, setResponse);
+    }
+    if (response.success !== null) {
+        return React.createElement(
+            'div',
+            { className: 'alert alert-success' },
+            React.createElement(
+                'strong',
+                null,
+                'Success!'
+            ),
+            ' Your email has been verified. Click ',
+            React.createElement(
+                'span',
+                { onClick: function onClick() {
+                        return props.goTo("sign-up");
+                    } },
+                'here'
+            ),
+            ' to login.'
+        );
+    } else if (response.error.length > 0) {
+        return React.createElement(
+            'div',
+            { className: 'alert alert-success' },
+            React.createElement(
+                'strong',
+                null,
+                'Success!'
+            ),
+            ' Your email has been verified. Click ',
+            React.createElement(
+                'a',
+                { href: '/login', className: 'alert-link' },
+                'here'
+            ),
+            ' to login.'
+        );
+    }
 }
 
 function Login() {
     var formRef = React.useRef();
 
-    var _React$useState5 = React.useState({
+    var _React$useState9 = React.useState({
         success: null,
         error: ''
     }),
-        _React$useState6 = _slicedToArray(_React$useState5, 2),
-        response = _React$useState6[0],
-        setResponse = _React$useState6[1];
+        _React$useState10 = _slicedToArray(_React$useState9, 2),
+        response = _React$useState10[0],
+        setResponse = _React$useState10[1];
 
-    var _React$useState7 = React.useState({
+    var _React$useState11 = React.useState({
         formError: '',
         emailError: '',
         passwordError: '',
         checkErrors: [1, 1]
     }),
-        _React$useState8 = _slicedToArray(_React$useState7, 2),
-        inputs = _React$useState8[0],
-        setInputsError = _React$useState8[1];
+        _React$useState12 = _slicedToArray(_React$useState11, 2),
+        inputs = _React$useState12[0],
+        setInputsError = _React$useState12[1];
 
     var validateInput = function validateInput(e) {
         var inputValue = e.target.value;
@@ -274,13 +322,14 @@ function Login() {
     var submitForm = function submitForm(e) {
         e.preventDefault();
         if (!inputs.checkErrors.includes(1)) {
-            postData('http://localhost:3000/login', formRef, setResponse);
+            postData('http://localhost:3000/login', new FormData(formRef.current), setResponse);
         } else {
             setInputsError(function (inputs) {
                 return Object.assign({}, inputs, { formError: 'Please fill the form completely' });
             });
         }
     };
+
     if (response.success === null) {
         return React.createElement(
             'div',
@@ -355,15 +404,25 @@ function Login() {
     }
 }
 
-function postData(url, formRef, setResponse) {
+function postData(url, formData, setResponse) {
     fetch(url, {
         method: 'POST',
         headers: {
             "Content-Type": "application/x-www-form-urlencoded"
         },
-        body: new URLSearchParams(new FormData(formRef.current))
+        body: new URLSearchParams(formData)
     }).then(function (response) {
-        return response.json();
+        try {
+            if (response.ok) {
+                response.json();
+            } else {
+                throw new Error('Network response was not ok');
+            }
+        } catch (error) {
+            setResponse(function (response) {
+                return Object.assign({}, response, { error: error });
+            });
+        }
     }).then(function (data) {
         if ("success" in data) {
             setResponse(function (response) {

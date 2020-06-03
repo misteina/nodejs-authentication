@@ -2,15 +2,22 @@
 
 const pathName = location.pathname.split('/')[1];
 
-const pages = {
-    "sign-up": SignUp,
-    "verify-email": VerifyEmail,
-    "login": Login
-};
-
 function App(){
-    const Page = pages[pathName];
-    return <Page />;
+    const [currentPage, setCurrentPage] = React.useState(pathName);
+    const pages = {
+        "sign-up": SignUp,
+        "verify-email": VerifyEmail,
+        "login": Login
+    };
+
+    const navigate = (link) => {
+        setCurrentPage(link);
+    }
+
+    if (currentPage in pages){
+        const Page = pages[currentPage];
+        return <Page goTo={navigate} />;
+    }
 }
 
 function SignUp(){
@@ -73,7 +80,7 @@ function SignUp(){
     const submitForm = (e) => {
         e.preventDefault();
         if (!inputs.checkErrors.includes(1)){
-            postData('http://localhost:3000/sign-up', formRef, setResponse);
+            postData('http://localhost:3000/sign-up', new FormData(formRef.current), setResponse);
         } else {
             setInputsError(inputs => ({ ...inputs, formError: 'Please fill the form completely' }));
         }
@@ -117,12 +124,34 @@ function SignUp(){
     }
 }
 
-function VerifyEmail(){
-    return (
-        <div className="alert alert-success">
-            <strong>Success!</strong> Your email has been verified. Click <a href="/login" className="alert-link">here</a> to login.
-        </div>
-    );
+function VerifyEmail(props){
+    const token = location.pathname.split('/')[2];
+
+    const [response, setResponse] = React.useState(
+        {
+            success: null,
+            error: ''
+        }
+    ); 
+    if (typeof token !== 'undefined'){
+        let formData = new FormData();
+        formData.append('token', token);
+
+        postData('http://localhost:3000/verify-email', formData, setResponse);
+    }
+    if (response.success !== null){
+        return (
+            <div className="alert alert-success">
+                <strong>Success!</strong> Your email has been verified. Click <span onClick={() => props.goTo("sign-up")}>here</span> to login.
+            </div>
+        );
+    } else if (response.error.length > 0) {
+        return (
+            <div className="alert alert-success">
+                <strong>Success!</strong> Your email has been verified. Click <a href="/login" className="alert-link">here</a> to login.
+            </div>
+        );
+    }
 }
 
 function Login(){
@@ -167,11 +196,12 @@ function Login(){
     const submitForm = (e) => {
         e.preventDefault();
         if (!inputs.checkErrors.includes(1)) {
-            postData('http://localhost:3000/login', formRef, setResponse);
+            postData('http://localhost:3000/login', new FormData(formRef.current), setResponse);
         } else {
             setInputsError(inputs => ({ ...inputs, formError: 'Please fill the form completely' }));
         }
     }
+    
     if (response.success === null){
         return (
             <div className="sbox">
@@ -202,7 +232,7 @@ function Login(){
     }
 }
 
-function postData(url, formRef, setResponse){
+function postData(url, formData, setResponse){
     fetch(
         url,
         {
@@ -210,10 +240,20 @@ function postData(url, formRef, setResponse){
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
             },
-            body: new URLSearchParams(new FormData(formRef.current))
+            body: new URLSearchParams(formData)
         }
     ).then(
-        response => response.json()
+        response => {
+            try {
+                if (response.ok) {
+                    response.json();
+                } else {
+                    throw new Error('Network response was not ok');
+                }
+            } catch (error) {
+                setResponse(response => ({ ...response, error: error }));
+            }
+        }
     ).then(
         data => {
             if ("success" in data) {

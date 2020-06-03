@@ -1,5 +1,5 @@
 module.exports = function (req, res) {
-    const token = req.params.token;
+    const token = req.body.token;
 
     const testMode = req.header('Test-Mode');
     const file = (typeof testMode === 'undefined') ? './database/db.json' : './database/test.db.json';
@@ -20,14 +20,14 @@ module.exports = function (req, res) {
             if (typeof testMode === 'undefined') {
                 database[email].verified = 'yes';
                 try {
-                    fs.writeFileSync(file, database.join(','), 'utf-8');
+                    fs.writeFileSync(file, JSON.stringify(database));
                     res.json({ success: "Your email is successfully verified" });
                 } catch (error) {
                     res.json({ error: "An error was encountered" });
                 }
 
             } else {
-                res.json({ success: "Your email is successfully verified" });
+                res.json({ success: "Your email is successfully verified. Please click <a href=\"/login\">here</> to login" });
             }
         } else {
             res.json({ error: "Your verification link is invalid" });
