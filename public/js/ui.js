@@ -30,25 +30,31 @@ function App() {
 function SignUp() {
     var passwordRef = React.useRef();
     var formRef = React.useRef();
+    var buttonRef = React.useRef();
 
-    var _React$useState3 = React.useState({
+    var _React$useState3 = React.useState('Sign Up'),
+        _React$useState4 = _slicedToArray(_React$useState3, 2),
+        buttonStatus = _React$useState4[0],
+        setButtonStatus = _React$useState4[1];
+
+    var _React$useState5 = React.useState({
         success: null,
         error: ''
     }),
-        _React$useState4 = _slicedToArray(_React$useState3, 2),
-        response = _React$useState4[0],
-        setResponse = _React$useState4[1];
+        _React$useState6 = _slicedToArray(_React$useState5, 2),
+        response = _React$useState6[0],
+        setResponse = _React$useState6[1];
 
-    var _React$useState5 = React.useState({
+    var _React$useState7 = React.useState({
         formError: '',
         nameError: '',
         emailError: '',
         passwordError: '',
         checkErrors: [1, 1, 1]
     }),
-        _React$useState6 = _slicedToArray(_React$useState5, 2),
-        inputs = _React$useState6[0],
-        setInputsError = _React$useState6[1];
+        _React$useState8 = _slicedToArray(_React$useState7, 2),
+        inputs = _React$useState8[0],
+        setInputsError = _React$useState8[1];
 
     var validateInput = function validateInput(e) {
         var inputValue = e.target.value;
@@ -106,6 +112,10 @@ function SignUp() {
     };
     var submitForm = function submitForm(e) {
         e.preventDefault();
+
+        buttonRef.current.disabled = true;
+        setButtonStatus('<span class="spinner-border spinner-border-sm"></span>&nbsp;Wait...');
+
         if (!inputs.checkErrors.includes(1)) {
             postData('http://localhost:3000/sign-up', new FormData(formRef.current), setResponse);
         } else {
@@ -191,11 +201,7 @@ function SignUp() {
                     ),
                     React.createElement('input', { type: 'password', name: 'verifyPassword', className: 'form-control', placeHolder: 'Enter password', id: 'vpwd', onBlur: validateInput })
                 ),
-                React.createElement(
-                    'button',
-                    { type: 'submit', className: 'btn btn-primary' },
-                    'Sign Up'
-                )
+                React.createElement('button', { type: 'submit', className: 'btn btn-primary', ref: buttonRef, dangerouslySetInnerHTML: { __html: buttonStatus } })
             )
         );
     } else {
@@ -216,13 +222,13 @@ function SignUp() {
 function VerifyEmail(props) {
     var token = location.pathname.split('/')[2];
 
-    var _React$useState7 = React.useState({
+    var _React$useState9 = React.useState({
         success: null,
         error: ''
     }),
-        _React$useState8 = _slicedToArray(_React$useState7, 2),
-        response = _React$useState8[0],
-        setResponse = _React$useState8[1];
+        _React$useState10 = _slicedToArray(_React$useState9, 2),
+        response = _React$useState10[0],
+        setResponse = _React$useState10[1];
 
     if (typeof token !== 'undefined') {
         var formData = new FormData();
@@ -282,23 +288,23 @@ function VerifyEmail(props) {
 function Login() {
     var formRef = React.useRef();
 
-    var _React$useState9 = React.useState({
+    var _React$useState11 = React.useState({
         success: null,
         error: ''
     }),
-        _React$useState10 = _slicedToArray(_React$useState9, 2),
-        response = _React$useState10[0],
-        setResponse = _React$useState10[1];
+        _React$useState12 = _slicedToArray(_React$useState11, 2),
+        response = _React$useState12[0],
+        setResponse = _React$useState12[1];
 
-    var _React$useState11 = React.useState({
+    var _React$useState13 = React.useState({
         formError: '',
         emailError: '',
         passwordError: '',
         checkErrors: [1, 1]
     }),
-        _React$useState12 = _slicedToArray(_React$useState11, 2),
-        inputs = _React$useState12[0],
-        setInputsError = _React$useState12[1];
+        _React$useState14 = _slicedToArray(_React$useState13, 2),
+        inputs = _React$useState14[0],
+        setInputsError = _React$useState14[1];
 
     var validateInput = function validateInput(e) {
         var inputValue = e.target.value;
@@ -450,7 +456,7 @@ function postData(url, formData, setResponse) {
             });
         }
     }).catch(function (error) {
-        setResponse(function (response) {
+        return setResponse(function (response) {
             return Object.assign({}, response, { error: "An error was encountered (102)" });
         });
     });

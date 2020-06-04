@@ -24,6 +24,8 @@ function App(){
 function SignUp(){
     const passwordRef = React.useRef();
     const formRef = React.useRef();
+    const buttonRef = React.useRef();
+    const [buttonStatus, setButtonStatus] = React.useState('Sign Up');
     const [response, setResponse] = React.useState(
         {
             success: null,
@@ -80,6 +82,10 @@ function SignUp(){
     }
     const submitForm = (e) => {
         e.preventDefault();
+
+        buttonRef.current.disabled = true;
+        setButtonStatus('<span class="spinner-border spinner-border-sm"></span>&nbsp;Wait...');
+
         if (!inputs.checkErrors.includes(1)){
             postData('http://localhost:3000/sign-up', new FormData(formRef.current), setResponse);
         } else {
@@ -112,7 +118,8 @@ function SignUp(){
                         <label for="vpwd">Password:</label>
                         <input type="password" name="verifyPassword" className="form-control" placeHolder="Enter password" id="vpwd" onBlur={validateInput} />
                     </div>
-                    <button type="submit" className="btn btn-primary">Sign Up</button>
+                    {/* dangerouslySetInnerHTML is safe in this use case  */}
+                    <button type="submit" className="btn btn-primary" ref={buttonRef} dangerouslySetInnerHTML={{__html: buttonStatus}} />
                 </form>
             </div>
         );
@@ -278,7 +285,7 @@ function postData(url, formData, setResponse){
         }
     ).catch(
         error => {
-            setResponse(response => ({ ...response, error: "An error was encountered (102)" }));
+            return setResponse(response => ({ ...response, error: "An error was encountered (102)" }));
         }
     );
 }
