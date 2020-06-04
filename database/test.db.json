@@ -1,12 +1,12 @@
 {
-    "enyinna@test.com":{
-        "name":"Enyinna",
-        "password": "$2b$10$DU6BBVvwCnY.NKrcb3cjvOkug9P27Ukyel3PTUye49i55X9KxP9Y6",
-        "verified": "yes"
-    },
-    "peter@test.com":{
-        "name": "Peter",
-        "password": "$2b$10$DU6BBVvwCnY.NKrcb3cjvOkug9P27Ukyel3PTUye49i55X9KxP9Y6",
-        "verified": "no"
-    }
+	"enyinna@test.com": {
+		"name": "Enyinna",
+		"password": "$2b$10$DU6BBVvwCnY.NKrcb3cjvOkug9P27Ukyel3PTUye49i55X9KxP9Y6",
+		"verified": "yes"
+	},
+	"peter@test.com": {
+		"name": "Peter",
+		"password": "$2b$10$DU6BBVvwCnY.NKrcb3cjvOkug9P27Ukyel3PTUye49i55X9KxP9Y6",
+		"verified": "no"
+	}
 }

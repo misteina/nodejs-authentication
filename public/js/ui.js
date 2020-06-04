@@ -18,6 +18,7 @@ function App() {
 
     var navigate = function navigate(link) {
         setCurrentPage(link);
+        history.pushState({}, null, 'http://localhost:3000/' + link);
     };
 
     if (currentPage in pages) {
@@ -227,38 +228,53 @@ function VerifyEmail(props) {
         var formData = new FormData();
         formData.append('token', token);
 
-        postData('http://localhost:3000/verify-email', formData, setResponse);
-    }
-    if (response.success !== null) {
-        return React.createElement(
-            'div',
-            { className: 'alert alert-success' },
-            React.createElement(
-                'strong',
-                null,
-                'Success!'
-            ),
-            ' Your email has been verified. Click ',
-            React.createElement(
-                'span',
-                { onClick: function onClick() {
-                        return props.goTo("sign-up");
-                    } },
-                'here'
-            ),
-            ' to login.'
-        );
-    } else if (response.error.length > 0) {
+        if (response.success === null && response.error.length === 0) {
+            postData('http://localhost:3000/verify-email', formData, setResponse);
+        }
+
+        if (response.success !== null) {
+            return React.createElement(
+                'div',
+                { className: 'alert alert-success' },
+                React.createElement(
+                    'strong',
+                    null,
+                    'Success!'
+                ),
+                ' Your email has been verified. Click ',
+                React.createElement(
+                    'span',
+                    { onClick: function onClick() {
+                            return props.goTo("login");
+                        } },
+                    'here'
+                ),
+                ' to login.'
+            );
+        } else if (response.error.length > 0) {
+            return React.createElement(
+                'div',
+                { className: 'alert alert-danger' },
+                React.createElement(
+                    'strong',
+                    null,
+                    'Error!'
+                ),
+                ' ',
+                response.error
+            );
+        }
+        return null;
+    } else {
         return React.createElement(
             'div',
             { className: 'alert alert-danger' },
             React.createElement(
                 'strong',
                 null,
-                'Success!'
+                'Error!'
             ),
-            ' ',
-            response.error
+            ' Unauthourized action (100)'
         );
     }
 }
@@ -430,12 +446,12 @@ function postData(url, formData, setResponse) {
             });
         } else {
             setResponse(function (response) {
-                return Object.assign({}, response, { error: "An error was encountered" });
+                return Object.assign({}, response, { error: "An error was encountered (101)" });
             });
         }
     }).catch(function (error) {
         setResponse(function (response) {
-            return Object.assign({}, response, { error: "An error was encountered" });
+            return Object.assign({}, response, { error: "An error was encountered (102)" });
         });
     });
 }

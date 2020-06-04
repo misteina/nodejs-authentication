@@ -5,8 +5,11 @@ describe('Email Verification Test', () => {
     it('Accepts valid verification link', async () => {
         try {
             const response = await axios({
-                method: 'get',
-                url: 'http://localhost:3000/verify-email/70664b32a9980691f936458da7c48a5d',
+                method: 'post',
+                url: 'http://localhost:3000/verify-email',
+                data: {
+                    token: '70664b32a9980691f936458da7c48a5d',
+                },
                 headers: { 'Test-Mode': 'Yes' }
             });
             assert("success" in response.data, 'failed');
@@ -22,8 +25,11 @@ describe('Email Verification Test', () => {
     it('Rejects invalid verification link', async () => {
         try {
             const response = await axios({
-                method: 'get',
-                url: 'http://localhost:3000/verify-email/96743b82a7584674f936458da7c48a5d',
+                method: 'post',
+                url: 'http://localhost:3000/verify-email',
+                data: {
+                    token: '86494b32a3420691f046774da7c49fh3',
+                },
                 headers: { 'Test-Mode': 'Yes' }
             });
             assert("error" in response.data, 'failed');

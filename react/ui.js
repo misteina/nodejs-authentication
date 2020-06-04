@@ -12,6 +12,7 @@ function App(){
 
     const navigate = (link) => {
         setCurrentPage(link);
+        history.pushState({}, null, 'http://localhost:3000/' + link);
     }
 
     if (currentPage in pages){
@@ -132,23 +133,33 @@ function VerifyEmail(props){
             success: null,
             error: ''
         }
-    ); 
+    );
     if (typeof token !== 'undefined'){
         let formData = new FormData();
         formData.append('token', token);
 
-        postData('http://localhost:3000/verify-email', formData, setResponse);
-    }
-    if (response.success !== null){
-        return (
-            <div className="alert alert-success">
-                <strong>Success!</strong> Your email has been verified. Click <span onClick={() => props.goTo("sign-up")}>here</span> to login.
-            </div>
-        );
-    } else if (response.error.length > 0) {
+        if (response.success === null && response.error.length === 0){
+            postData('http://localhost:3000/verify-email', formData, setResponse);
+        }
+
+        if (response.success !== null) {
+            return (
+                <div className="alert alert-success">
+                    <strong>Success!</strong> Your email has been verified. Click <span onClick={() => props.goTo("login")}>here</span> to login.
+                </div>
+            );
+        } else if (response.error.length > 0) {
+            return (
+                <div className="alert alert-danger">
+                    <strong>Error!</strong> {response.error}
+                </div>
+            );
+        }
+        return null;
+    } else {
         return (
             <div className="alert alert-danger">
-                <strong>Success!</strong> {response.error}
+                <strong>Error!</strong> Unauthourized action (100)
             </div>
         );
     }
@@ -262,12 +273,12 @@ function postData(url, formData, setResponse){
             } else if ("error" in data) {
                 setResponse(response => ({ ...response, error: data.error }));
             } else {
-                setResponse(response => ({ ...response, error: "An error was encountered" }));
+                setResponse(response => ({ ...response, error: "An error was encountered (101)" }));
             }
         }
     ).catch(
         error => {
-            setResponse(response => ({ ...response, error: "An error was encountered" }));
+            setResponse(response => ({ ...response, error: "An error was encountered (102)" }));
         }
     );
 }
