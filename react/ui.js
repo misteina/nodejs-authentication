@@ -147,8 +147,8 @@ function VerifyEmail(props){
         );
     } else if (response.error.length > 0) {
         return (
-            <div className="alert alert-success">
-                <strong>Success!</strong> Your email has been verified. Click <a href="/login" className="alert-link">here</a> to login.
+            <div className="alert alert-danger">
+                <strong>Success!</strong> {response.error}
             </div>
         );
     }
@@ -239,6 +239,7 @@ function postData(url, formData, setResponse){
             method: 'POST',
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
+                "Access-Control-Allow-Origin": "*"
             },
             body: new URLSearchParams(formData)
         }
@@ -246,7 +247,7 @@ function postData(url, formData, setResponse){
         response => {
             try {
                 if (response.ok) {
-                    response.json();
+                    return response.json();
                 } else {
                     throw new Error('Network response was not ok');
                 }

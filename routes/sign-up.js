@@ -17,58 +17,58 @@ module.exports = function (req, res) {
         if (!(email in database)){
             const bcrypt = require('bcrypt');
             
-            bcrypt.hash(password, 10, function (err, hash) {
-                database[email] = {name: name, password: hash, verified: "no"};
+            const hash = bcrypt.hashSync(password, 10);
 
-                let written = false;
-                try {
-                    if (typeof testMode === 'undefined'){
-                        //fs.writeFileSync(file, JSON.stringify(database));
-                        written = true;
-                    }
-                } catch (error) {
-                    res.json({ error: "An error was encountered" });
+            database[email] = { name: name, password: hash, verified: "no" };
+
+            let written = false;
+            try {
+                if (typeof testMode === 'undefined') {
+                    fs.writeFileSync(file, JSON.stringify(database, null, '\t'));
                 }
-                
-                if (written && typeof testMode === 'undefined'){
+            } catch (error) {
+                res.json({ error: "An error was encountered" });
+            }
+            res.json({ success: "You have been successfully registered. Verify your email address and login" });
+
+            /*if (testMode === 'undefined') {
+                try {
                     const crypto = require("crypto");
 
                     let cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from('4a4c00ed5a40c54ecd5785192dbe0d6c'), Buffer.from('4a4c00ed5a40c54e'));
                     let encrypted = cipher.update(email);
                     encrypted = Buffer.concat([encrypted, cipher.final()]);
                     let token = encrypted.toString('hex');
-                    
-                    try {
-                        /*const nodemailer = require('nodemailer');
 
-                        let transporter = nodemailer.createTransport({
-                            service: 'gmail',
-                            auth: {
-                                user: 'auth.testing.0001@gmail.com',
-                                pass: 'dhg75yd7f57'
-                            }
-                        });
+                    const nodemailer = require('nodemailer');
 
-                        let mailOptions = {
-                            from: 'auth.testing.0001@gmail.com',
-                            to: email,
-                            subject: 'You have been registered',
-                            text: `Hello ${name}, thank you for your registration. Please click on the following link to verify your email address http://localhost:3000/verify-email/${token}`
-                        };
+                    let transporter = nodemailer.createTransport({
+                        service: 'gmail',
+                        auth: {
+                            user: 'auth.testing.0001@gmail.com',
+                            pass: 'dhg75yd7f57'
+                        }
+                    });
 
-                        transporter.sendMail(mailOptions, function (error, info) {
-                            if (error) {
-                                console.log(error);
-                            }
-                        });*/
-                        res.json({ success: "You have been successfully registered. Verify your email address and login" });
-                    } catch (error) {
-                        res.json({ error: error });
-                    }
-                } else if (!written && typeof testMode !== 'undefined'){
-                    res.json({ success: "You have been successfully registered" });
+                    let mailOptions = {
+                        from: '"Authentication Team" <auth.testing.0001@gmail.com>',
+                        to: email,
+                        subject: 'You have been registered',
+                        text: `Hello ${name}, \r\n\r\nThank you for your registration. \r\n\r\nPlease click on the following link to verify your email address: http://localhost:3000/verify-email/${token} \r\n\r\nAuthentication Team.`
+                    };
+
+                    transporter.sendMail(mailOptions, function (error, info) {
+                        if (error) {
+                            console.log(error);
+                        }
+                    });
+                } catch (error) {
+                    console.log(error);
                 }
-            });
+                
+            } else if (!written && typeof testMode !== 'undefined') {
+                res.json({ success: "You have been successfully registered" });
+            }*/
         } else {
             res.json({error: "Your email already exists"});
         }

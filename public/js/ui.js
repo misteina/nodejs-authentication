@@ -251,19 +251,14 @@ function VerifyEmail(props) {
     } else if (response.error.length > 0) {
         return React.createElement(
             'div',
-            { className: 'alert alert-success' },
+            { className: 'alert alert-danger' },
             React.createElement(
                 'strong',
                 null,
                 'Success!'
             ),
-            ' Your email has been verified. Click ',
-            React.createElement(
-                'a',
-                { href: '/login', className: 'alert-link' },
-                'here'
-            ),
-            ' to login.'
+            ' ',
+            response.error
         );
     }
 }
@@ -408,13 +403,14 @@ function postData(url, formData, setResponse) {
     fetch(url, {
         method: 'POST',
         headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Access-Control-Allow-Origin": "*"
         },
         body: new URLSearchParams(formData)
     }).then(function (response) {
         try {
             if (response.ok) {
-                response.json();
+                return response.json();
             } else {
                 throw new Error('Network response was not ok');
             }

@@ -1,5 +1,6 @@
 module.exports = function (req, res) {
     const token = req.body.token;
+    console.log(token);
 
     const testMode = req.header('Test-Mode');
     const file = (typeof testMode === 'undefined') ? './database/db.json' : './database/test.db.json';
