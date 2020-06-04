@@ -21,7 +21,7 @@ function App(){
     }
 }
 
-function SignUp(){
+function SignUp(props){
     const passwordRef = React.useRef();
     const formRef = React.useRef();
     const buttonRef = React.useRef();
@@ -96,6 +96,7 @@ function SignUp(){
         return (
             <div className="sbox">
                 <div className="ftitle">Sign Up</div>
+                <div className="leftoption" onClick={() => props.goTo("login")}>Login</div>
                 <div className="error">{inputs.formError}</div>
                 <div className="error">{response.error}</div>
                 <form ref={formRef} onSubmit={submitForm}>
@@ -172,7 +173,7 @@ function VerifyEmail(props){
     }
 }
 
-function Login(){
+function Login(props){
     const formRef = React.useRef();
     const [response, setResponse] = React.useState(
         {
@@ -224,6 +225,7 @@ function Login(){
         return (
             <div className="sbox">
                 <div className="ftitle">Login</div>
+                <div className="leftoption" onClick={() => props.goTo("sign-up")}>Sign Up</div>
                 <form ref={formRef} onSubmit={submitForm}>
                     <div className="error">{inputs.formError}</div>
                     <div className="error">{inputs.emailError}</div>

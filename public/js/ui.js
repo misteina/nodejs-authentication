@@ -27,7 +27,7 @@ function App() {
     }
 }
 
-function SignUp() {
+function SignUp(props) {
     var passwordRef = React.useRef();
     var formRef = React.useRef();
     var buttonRef = React.useRef();
@@ -132,6 +132,13 @@ function SignUp() {
                 'div',
                 { className: 'ftitle' },
                 'Sign Up'
+            ),
+            React.createElement(
+                'div',
+                { className: 'leftoption', onClick: function onClick() {
+                        return props.goTo("login");
+                    } },
+                'Login'
             ),
             React.createElement(
                 'div',
@@ -285,7 +292,7 @@ function VerifyEmail(props) {
     }
 }
 
-function Login() {
+function Login(props) {
     var formRef = React.useRef();
 
     var _React$useState11 = React.useState({
@@ -355,6 +362,13 @@ function Login() {
                 'div',
                 { className: 'ftitle' },
                 'Login'
+            ),
+            React.createElement(
+                'div',
+                { className: 'leftoption', onClick: function onClick() {
+                        return props.goTo("sign-up");
+                    } },
+                'Sign Up'
             ),
             React.createElement(
                 'form',

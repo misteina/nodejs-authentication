@@ -6,6 +6,7 @@ label{
     font-size: 14px;
 }
 .sbox{
+    position: relative;
     width: 400px;
     min-width: 300px;
     border: 1px solid #e8e8e8;
@@ -30,4 +31,12 @@ label{
 .alert span{
     cursor: pointer;
     text-decoration: underline;
+}
+.leftoption{
+    position: absolute;
+    top: 30px;
+    right: 20px;
+    color: #0094ff;
+    cursor: pointer;
+    font-size: 14px;
 }

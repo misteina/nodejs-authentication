@@ -52,7 +52,6 @@ module.exports = function (req, res) {
                         res.json({ success: "You have been successfully registered. Verify your email address and login" });
                     } else {
                         res.json({ error: "An error was encountered (001)" });
-                        console.log(error);
                     }
                 });
             } else if ("name" in database[email]){
