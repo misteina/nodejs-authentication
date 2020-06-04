@@ -2,25 +2,27 @@
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
-var pathName = location.pathname.split('/')[1];
-
 function App() {
+    var pathName = location.pathname.split('/')[1];
+
     var _React$useState = React.useState(pathName),
         _React$useState2 = _slicedToArray(_React$useState, 2),
         currentPage = _React$useState2[0],
         setCurrentPage = _React$useState2[1];
+
+    if (pathName !== currentPage) {
+        setCurrentPage(pathName);
+    }
 
     var pages = {
         "sign-up": SignUp,
         "verify-email": VerifyEmail,
         "login": Login
     };
-
     var navigate = function navigate(link) {
         setCurrentPage(link);
         history.pushState({}, null, 'http://localhost:3000/' + link);
     };
-
     if (currentPage in pages) {
         var Page = pages[currentPage];
         return React.createElement(Page, { goTo: navigate });
@@ -477,3 +479,7 @@ function postData(url, formData, setResponse) {
 }
 
 ReactDOM.render(React.createElement(App, null), document.getElementById('root'));
+
+window.addEventListener('popstate', function (event) {
+    ReactDOM.render(React.createElement(App, null), document.getElementById('root'));
+});
