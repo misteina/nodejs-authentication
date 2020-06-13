@@ -1,485 +1,149 @@
-'use strict';
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = "./react/App.js");
+/******/ })
+/************************************************************************/
+/******/ ({
 
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+/***/ "./react/App.js":
+/*!**********************!*\
+  !*** ./react/App.js ***!
+  \**********************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-function App() {
-    var pathName = location.pathname.split('/')[1];
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _SignUp__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SignUp */ \"./react/SignUp.js\");\n/* harmony import */ var _LogIn__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./LogIn */ \"./react/LogIn.js\");\n/* harmony import */ var _VerifyEmail__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./VerifyEmail */ \"./react/VerifyEmail.js\");\n\n\nfunction _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }\n\nfunction _nonIterableRest() { throw new TypeError(\"Invalid attempt to destructure non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.\"); }\n\nfunction _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === \"string\") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === \"Object\" && o.constructor) n = o.constructor.name; if (n === \"Map\" || n === \"Set\") return Array.from(o); if (n === \"Arguments\" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }\n\nfunction _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }\n\nfunction _iterableToArrayLimit(arr, i) { if (typeof Symbol === \"undefined\" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i[\"return\"] != null) _i[\"return\"](); } finally { if (_d) throw _e; } } return _arr; }\n\nfunction _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }\n\n\n\n\n\nfunction App() {\n  var pathName = location.pathname.split('/')[1];\n\n  var _React$useState = React.useState(pathName),\n      _React$useState2 = _slicedToArray(_React$useState, 2),\n      currentPage = _React$useState2[0],\n      setCurrentPage = _React$useState2[1];\n\n  if (pathName !== currentPage) {\n    setCurrentPage(pathName);\n  }\n\n  var pages = {\n    \"sign-up\": _SignUp__WEBPACK_IMPORTED_MODULE_0__[\"default\"],\n    \"verify-email\": _VerifyEmail__WEBPACK_IMPORTED_MODULE_2__[\"default\"],\n    \"login\": _LogIn__WEBPACK_IMPORTED_MODULE_1__[\"default\"]\n  };\n\n  var navigate = function navigate(link) {\n    setCurrentPage(link);\n    history.pushState({}, null, 'http://localhost:3000/' + link);\n  };\n\n  if (currentPage in pages) {\n    var Page = pages[currentPage];\n    return /*#__PURE__*/React.createElement(Page, {\n      goTo: navigate\n    });\n  }\n}\n\nReactDOM.render( /*#__PURE__*/React.createElement(App, null), document.getElementById('root'));\nwindow.addEventListener('popstate', function (event) {\n  ReactDOM.render( /*#__PURE__*/React.createElement(App, null), document.getElementById('root'));\n});\n\n//# sourceURL=webpack:///./react/App.js?");
 
-    var _React$useState = React.useState(pathName),
-        _React$useState2 = _slicedToArray(_React$useState, 2),
-        currentPage = _React$useState2[0],
-        setCurrentPage = _React$useState2[1];
+/***/ }),
 
-    if (pathName !== currentPage) {
-        setCurrentPage(pathName);
-    }
+/***/ "./react/LogIn.js":
+/*!************************!*\
+  !*** ./react/LogIn.js ***!
+  \************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-    var pages = {
-        "sign-up": SignUp,
-        "verify-email": VerifyEmail,
-        "login": Login
-    };
-    var navigate = function navigate(link) {
-        setCurrentPage(link);
-        history.pushState({}, null, 'http://localhost:3000/' + link);
-    };
-    if (currentPage in pages) {
-        var Page = pages[currentPage];
-        return React.createElement(Page, { goTo: navigate });
-    }
-}
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"default\", function() { return Login; });\n/* harmony import */ var _postData__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./postData */ \"./react/postData.js\");\nfunction ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }\n\nfunction _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }\n\nfunction _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }\n\nfunction _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }\n\nfunction _nonIterableRest() { throw new TypeError(\"Invalid attempt to destructure non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.\"); }\n\nfunction _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === \"string\") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === \"Object\" && o.constructor) n = o.constructor.name; if (n === \"Map\" || n === \"Set\") return Array.from(o); if (n === \"Arguments\" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }\n\nfunction _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }\n\nfunction _iterableToArrayLimit(arr, i) { if (typeof Symbol === \"undefined\" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i[\"return\"] != null) _i[\"return\"](); } finally { if (_d) throw _e; } } return _arr; }\n\nfunction _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }\n\n\nfunction Login(props) {\n  var formRef = React.useRef();\n\n  var _React$useState = React.useState({\n    success: null,\n    error: ''\n  }),\n      _React$useState2 = _slicedToArray(_React$useState, 2),\n      response = _React$useState2[0],\n      setResponse = _React$useState2[1];\n\n  var _React$useState3 = React.useState({\n    formError: '',\n    emailError: '',\n    passwordError: '',\n    checkErrors: [1, 1]\n  }),\n      _React$useState4 = _slicedToArray(_React$useState3, 2),\n      inputs = _React$useState4[0],\n      setInputsError = _React$useState4[1];\n\n  var validateInput = function validateInput(e) {\n    var inputValue = e.target.value;\n    var inputField = e.target.id;\n\n    if (inputField === 'email') {\n      if (!/\\S+@\\S+\\.\\S+/.test(inputValue)) {\n        inputs.checkErrors[0] = 1;\n        setInputsError(function (inputs) {\n          return _objectSpread(_objectSpread({}, inputs), {}, {\n            emailError: 'Your email is invalid',\n            checkErrors: inputs.checkErrors\n          });\n        });\n      } else {\n        inputs.checkErrors[0] = 0;\n        setInputsError(function (inputs) {\n          return _objectSpread(_objectSpread({}, inputs), {}, {\n            emailError: '',\n            checkErrors: inputs.checkErrors\n          });\n        });\n      }\n    } else if (inputField === 'pwd') {\n      if (inputField.trim().length > 20 || inputValue.trim().length < 3) {\n        inputs.checkErrors[1] = 1;\n        setInputsError(function (inputs) {\n          return _objectSpread(_objectSpread({}, inputs), {}, {\n            passwordError: 'Your password is invalid',\n            checkErrors: inputs.checkErrors\n          });\n        });\n      } else {\n        inputs.checkErrors[1] = 0;\n        setInputsError(function (inputs) {\n          return _objectSpread(_objectSpread({}, inputs), {}, {\n            passwordError: '',\n            checkErrors: inputs.checkErrors\n          });\n        });\n      }\n    }\n  };\n\n  var submitForm = function submitForm(e) {\n    e.preventDefault();\n\n    if (!inputs.checkErrors.includes(1)) {\n      Object(_postData__WEBPACK_IMPORTED_MODULE_0__[\"default\"])('http://localhost:3000/login', new FormData(formRef.current), setResponse);\n    } else {\n      setInputsError(function (inputs) {\n        return _objectSpread(_objectSpread({}, inputs), {}, {\n          formError: 'Please fill the form completely'\n        });\n      });\n    }\n  };\n\n  if (response.success === null) {\n    return /*#__PURE__*/React.createElement(\"div\", {\n      className: \"sbox\"\n    }, /*#__PURE__*/React.createElement(\"div\", {\n      className: \"ftitle\"\n    }, \"Login\"), /*#__PURE__*/React.createElement(\"div\", {\n      className: \"leftoption\",\n      onClick: function onClick() {\n        return props.goTo(\"sign-up\");\n      }\n    }, \"Sign Up\"), /*#__PURE__*/React.createElement(\"form\", {\n      ref: formRef,\n      onSubmit: submitForm\n    }, /*#__PURE__*/React.createElement(\"div\", {\n      className: \"error\"\n    }, inputs.formError), /*#__PURE__*/React.createElement(\"div\", {\n      className: \"error\"\n    }, inputs.emailError), /*#__PURE__*/React.createElement(\"div\", {\n      className: \"error\"\n    }, inputs.passwordError), /*#__PURE__*/React.createElement(\"div\", {\n      className: \"error\"\n    }, response.error), /*#__PURE__*/React.createElement(\"div\", {\n      className: \"form-group\"\n    }, /*#__PURE__*/React.createElement(\"label\", {\n      \"for\": \"email\"\n    }, \"Email address:\"), /*#__PURE__*/React.createElement(\"input\", {\n      type: \"email\",\n      className: \"form-control\",\n      name: \"email\",\n      placeHolder: \"Enter email\",\n      id: \"email\",\n      onBlur: validateInput\n    })), /*#__PURE__*/React.createElement(\"div\", {\n      className: \"form-group\"\n    }, /*#__PURE__*/React.createElement(\"label\", {\n      \"for\": \"pwd\"\n    }, \"Password:\"), /*#__PURE__*/React.createElement(\"input\", {\n      type: \"password\",\n      className: \"form-control\",\n      name: \"password\",\n      placeHolder: \"Enter password\",\n      id: \"pwd\",\n      onBlur: validateInput\n    })), /*#__PURE__*/React.createElement(\"button\", {\n      type: \"submit\",\n      className: \"btn btn-primary\"\n    }, \"Login\")));\n  } else {\n    return /*#__PURE__*/React.createElement(\"div\", {\n      className: \"alert alert-success\"\n    }, /*#__PURE__*/React.createElement(\"strong\", null, \"Success!\"), \" \", response.success);\n  }\n}\n\n//# sourceURL=webpack:///./react/LogIn.js?");
 
-function SignUp(props) {
-    var passwordRef = React.useRef();
-    var formRef = React.useRef();
-    var buttonRef = React.useRef();
+/***/ }),
 
-    var _React$useState3 = React.useState('Sign Up'),
-        _React$useState4 = _slicedToArray(_React$useState3, 2),
-        buttonStatus = _React$useState4[0],
-        setButtonStatus = _React$useState4[1];
+/***/ "./react/SignUp.js":
+/*!*************************!*\
+  !*** ./react/SignUp.js ***!
+  \*************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-    var _React$useState5 = React.useState({
-        success: null,
-        error: ''
-    }),
-        _React$useState6 = _slicedToArray(_React$useState5, 2),
-        response = _React$useState6[0],
-        setResponse = _React$useState6[1];
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"default\", function() { return SignUp; });\n/* harmony import */ var _postData__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./postData */ \"./react/postData.js\");\nfunction ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }\n\nfunction _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }\n\nfunction _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }\n\nfunction _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }\n\nfunction _nonIterableRest() { throw new TypeError(\"Invalid attempt to destructure non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.\"); }\n\nfunction _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === \"string\") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === \"Object\" && o.constructor) n = o.constructor.name; if (n === \"Map\" || n === \"Set\") return Array.from(o); if (n === \"Arguments\" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }\n\nfunction _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }\n\nfunction _iterableToArrayLimit(arr, i) { if (typeof Symbol === \"undefined\" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i[\"return\"] != null) _i[\"return\"](); } finally { if (_d) throw _e; } } return _arr; }\n\nfunction _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }\n\n\nfunction SignUp(props) {\n  var passwordRef = React.useRef();\n  var formRef = React.useRef();\n  var buttonRef = React.useRef();\n\n  var _React$useState = React.useState('Sign Up'),\n      _React$useState2 = _slicedToArray(_React$useState, 2),\n      buttonStatus = _React$useState2[0],\n      setButtonStatus = _React$useState2[1];\n\n  var _React$useState3 = React.useState({\n    success: null,\n    error: ''\n  }),\n      _React$useState4 = _slicedToArray(_React$useState3, 2),\n      response = _React$useState4[0],\n      setResponse = _React$useState4[1];\n\n  var _React$useState5 = React.useState({\n    formError: '',\n    nameError: '',\n    emailError: '',\n    passwordError: '',\n    checkErrors: [1, 1, 1]\n  }),\n      _React$useState6 = _slicedToArray(_React$useState5, 2),\n      inputs = _React$useState6[0],\n      setInputsError = _React$useState6[1];\n\n  var validateInput = function validateInput(e) {\n    var inputValue = e.target.value;\n    var inputField = e.target.id;\n\n    if (inputField === 'name') {\n      if (!/^[a-zA-Z ]+$/.test(inputValue) || inputValue.trim().length < 2 || inputValue.trim().length > 50) {\n        inputs.checkErrors[0] = 1;\n        setInputsError(function (inputs) {\n          return _objectSpread(_objectSpread({}, inputs), {}, {\n            nameError: 'Your name is invalid',\n            checkErrors: inputs.checkErrors\n          });\n        });\n      } else {\n        inputs.checkErrors[0] = 0;\n        setInputsError(function (inputs) {\n          return _objectSpread(_objectSpread({}, inputs), {}, {\n            nameError: '',\n            checkErrors: inputs.checkErrors\n          });\n        });\n      }\n    } else if (inputField === 'email') {\n      if (!/\\S+@\\S+\\.\\S+/.test(inputValue)) {\n        inputs.checkErrors[1] = 1;\n        setInputsError(function (inputs) {\n          return _objectSpread(_objectSpread({}, inputs), {}, {\n            emailError: 'Your email is invalid',\n            checkErrors: inputs.checkErrors\n          });\n        });\n      } else {\n        inputs.checkErrors[1] = 0;\n        setInputsError(function (inputs) {\n          return _objectSpread(_objectSpread({}, inputs), {}, {\n            emailError: '',\n            checkErrors: inputs.checkErrors\n          });\n        });\n      }\n    } else if (inputField === 'pwd') {\n      if (inputField.trim().length > 20 || inputValue.trim().length < 3) {\n        inputs.checkErrors[2] = 1;\n        setInputsError(function (inputs) {\n          return _objectSpread(_objectSpread({}, inputs), {}, {\n            passwordError: 'Your password is invalid',\n            checkErrors: inputs.checkErrors\n          });\n        });\n      } else {\n        inputs.checkErrors[2] = 0;\n        setInputsError(function (inputs) {\n          return _objectSpread(_objectSpread({}, inputs), {}, {\n            passwordError: '',\n            checkErrors: inputs.checkErrors\n          });\n        });\n      }\n    } else if (inputField === 'vpwd') {\n      if (inputValue !== passwordRef.current.value) {\n        inputs.checkErrors[2] = 1;\n        setInputsError(function (inputs) {\n          return _objectSpread(_objectSpread({}, inputs), {}, {\n            passwordError: 'Your password is invalid',\n            checkErrors: inputs.checkErrors\n          });\n        });\n      } else {\n        inputs.checkErrors[2] = 0;\n        setInputsError(function (inputs) {\n          return _objectSpread(_objectSpread({}, inputs), {}, {\n            passwordError: '',\n            checkErrors: inputs.checkErrors\n          });\n        });\n      }\n    }\n  };\n\n  var submitForm = function submitForm(e) {\n    e.preventDefault();\n    buttonRef.current.disabled = true;\n    setButtonStatus('<span class=\"spinner-border spinner-border-sm\"></span>&nbsp;Wait...');\n\n    if (!inputs.checkErrors.includes(1)) {\n      Object(_postData__WEBPACK_IMPORTED_MODULE_0__[\"default\"])('http://localhost:3000/sign-up', new FormData(formRef.current), setResponse);\n    } else {\n      setInputsError(function (inputs) {\n        return _objectSpread(_objectSpread({}, inputs), {}, {\n          formError: 'Please fill the form completely'\n        });\n      });\n    }\n  };\n\n  if (response.success === null) {\n    return /*#__PURE__*/React.createElement(\"div\", {\n      className: \"sbox\"\n    }, /*#__PURE__*/React.createElement(\"div\", {\n      className: \"ftitle\"\n    }, \"Sign Up\"), /*#__PURE__*/React.createElement(\"div\", {\n      className: \"leftoption\",\n      onClick: function onClick() {\n        return props.goTo(\"login\");\n      }\n    }, \"Login\"), /*#__PURE__*/React.createElement(\"div\", {\n      className: \"error\"\n    }, inputs.formError), /*#__PURE__*/React.createElement(\"div\", {\n      className: \"error\"\n    }, response.error), /*#__PURE__*/React.createElement(\"form\", {\n      ref: formRef,\n      onSubmit: submitForm\n    }, /*#__PURE__*/React.createElement(\"div\", {\n      className: \"form-group\"\n    }, /*#__PURE__*/React.createElement(\"label\", {\n      \"for\": \"name\"\n    }, \"Your Name:\"), /*#__PURE__*/React.createElement(\"div\", {\n      className: \"error\"\n    }, inputs.nameError), /*#__PURE__*/React.createElement(\"input\", {\n      type: \"text\",\n      name: \"name\",\n      className: \"form-control\",\n      placeHolder: \"Enter name\",\n      id: \"name\",\n      onBlur: validateInput\n    })), /*#__PURE__*/React.createElement(\"div\", {\n      className: \"form-group\"\n    }, /*#__PURE__*/React.createElement(\"label\", {\n      \"for\": \"email\"\n    }, \"Email address:\"), /*#__PURE__*/React.createElement(\"div\", {\n      className: \"error\"\n    }, inputs.emailError), /*#__PURE__*/React.createElement(\"input\", {\n      type: \"email\",\n      name: \"email\",\n      className: \"form-control\",\n      placeHolder: \"Enter email\",\n      id: \"email\",\n      onBlur: validateInput\n    })), /*#__PURE__*/React.createElement(\"div\", {\n      className: \"form-group\"\n    }, /*#__PURE__*/React.createElement(\"label\", {\n      \"for\": \"pwd\"\n    }, \"Password:\"), /*#__PURE__*/React.createElement(\"div\", {\n      className: \"error\"\n    }, inputs.passwordError), /*#__PURE__*/React.createElement(\"input\", {\n      type: \"password\",\n      name: \"password\",\n      className: \"form-control\",\n      placeHolder: \"Enter password\",\n      id: \"pwd\",\n      ref: passwordRef,\n      onBlur: validateInput\n    })), /*#__PURE__*/React.createElement(\"div\", {\n      className: \"form-group\"\n    }, /*#__PURE__*/React.createElement(\"label\", {\n      \"for\": \"vpwd\"\n    }, \"Password:\"), /*#__PURE__*/React.createElement(\"input\", {\n      type: \"password\",\n      name: \"verifyPassword\",\n      className: \"form-control\",\n      placeHolder: \"Enter password\",\n      id: \"vpwd\",\n      onBlur: validateInput\n    })), /*#__PURE__*/React.createElement(\"button\", {\n      type: \"submit\",\n      className: \"btn btn-primary\",\n      ref: buttonRef,\n      dangerouslySetInnerHTML: {\n        __html: buttonStatus\n      }\n    })));\n  } else {\n    return /*#__PURE__*/React.createElement(\"div\", {\n      className: \"alert alert-success\"\n    }, /*#__PURE__*/React.createElement(\"strong\", null, \"Success!\"), \" \", response.success);\n  }\n}\n\n//# sourceURL=webpack:///./react/SignUp.js?");
 
-    var _React$useState7 = React.useState({
-        formError: '',
-        nameError: '',
-        emailError: '',
-        passwordError: '',
-        checkErrors: [1, 1, 1]
-    }),
-        _React$useState8 = _slicedToArray(_React$useState7, 2),
-        inputs = _React$useState8[0],
-        setInputsError = _React$useState8[1];
+/***/ }),
 
-    var validateInput = function validateInput(e) {
-        var inputValue = e.target.value;
-        var inputField = e.target.id;
+/***/ "./react/VerifyEmail.js":
+/*!******************************!*\
+  !*** ./react/VerifyEmail.js ***!
+  \******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-        if (inputField === 'name') {
-            if (!/^[a-zA-Z ]+$/.test(inputValue) || inputValue.trim().length < 2 || inputValue.trim().length > 50) {
-                inputs.checkErrors[0] = 1;
-                setInputsError(function (inputs) {
-                    return Object.assign({}, inputs, { nameError: 'Your name is invalid', checkErrors: inputs.checkErrors });
-                });
-            } else {
-                inputs.checkErrors[0] = 0;
-                setInputsError(function (inputs) {
-                    return Object.assign({}, inputs, { nameError: '', checkErrors: inputs.checkErrors });
-                });
-            }
-        } else if (inputField === 'email') {
-            if (!/\S+@\S+\.\S+/.test(inputValue)) {
-                inputs.checkErrors[1] = 1;
-                setInputsError(function (inputs) {
-                    return Object.assign({}, inputs, { emailError: 'Your email is invalid', checkErrors: inputs.checkErrors });
-                });
-            } else {
-                inputs.checkErrors[1] = 0;
-                setInputsError(function (inputs) {
-                    return Object.assign({}, inputs, { emailError: '', checkErrors: inputs.checkErrors });
-                });
-            }
-        } else if (inputField === 'pwd') {
-            if (inputField.trim().length > 20 || inputValue.trim().length < 3) {
-                inputs.checkErrors[2] = 1;
-                setInputsError(function (inputs) {
-                    return Object.assign({}, inputs, { passwordError: 'Your password is invalid', checkErrors: inputs.checkErrors });
-                });
-            } else {
-                inputs.checkErrors[2] = 0;
-                setInputsError(function (inputs) {
-                    return Object.assign({}, inputs, { passwordError: '', checkErrors: inputs.checkErrors });
-                });
-            }
-        } else if (inputField === 'vpwd') {
-            if (inputValue !== passwordRef.current.value) {
-                inputs.checkErrors[2] = 1;
-                setInputsError(function (inputs) {
-                    return Object.assign({}, inputs, { passwordError: 'Your password is invalid', checkErrors: inputs.checkErrors });
-                });
-            } else {
-                inputs.checkErrors[2] = 0;
-                setInputsError(function (inputs) {
-                    return Object.assign({}, inputs, { passwordError: '', checkErrors: inputs.checkErrors });
-                });
-            }
-        }
-    };
-    var submitForm = function submitForm(e) {
-        e.preventDefault();
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"default\", function() { return VerifyEmail; });\n/* harmony import */ var _postData__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./postData */ \"./react/postData.js\");\nfunction _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }\n\nfunction _nonIterableRest() { throw new TypeError(\"Invalid attempt to destructure non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.\"); }\n\nfunction _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === \"string\") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === \"Object\" && o.constructor) n = o.constructor.name; if (n === \"Map\" || n === \"Set\") return Array.from(o); if (n === \"Arguments\" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }\n\nfunction _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }\n\nfunction _iterableToArrayLimit(arr, i) { if (typeof Symbol === \"undefined\" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i[\"return\"] != null) _i[\"return\"](); } finally { if (_d) throw _e; } } return _arr; }\n\nfunction _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }\n\n\nfunction VerifyEmail(props) {\n  var token = location.pathname.split('/')[2];\n\n  var _React$useState = React.useState({\n    success: null,\n    error: ''\n  }),\n      _React$useState2 = _slicedToArray(_React$useState, 2),\n      response = _React$useState2[0],\n      setResponse = _React$useState2[1];\n\n  if (typeof token !== 'undefined') {\n    var formData = new FormData();\n    formData.append('token', token);\n\n    if (response.success === null && response.error.length === 0) {\n      Object(_postData__WEBPACK_IMPORTED_MODULE_0__[\"default\"])('http://localhost:3000/verify-email', formData, setResponse);\n    }\n\n    if (response.success !== null) {\n      return /*#__PURE__*/React.createElement(\"div\", {\n        className: \"alert alert-success\"\n      }, /*#__PURE__*/React.createElement(\"strong\", null, \"Success!\"), \" Your email has been verified. Click \", /*#__PURE__*/React.createElement(\"span\", {\n        onClick: function onClick() {\n          return props.goTo(\"login\");\n        }\n      }, \"here\"), \" to login.\");\n    } else if (response.error.length > 0) {\n      return /*#__PURE__*/React.createElement(\"div\", {\n        className: \"alert alert-danger\"\n      }, /*#__PURE__*/React.createElement(\"strong\", null, \"Error!\"), \" \", response.error);\n    }\n\n    return null;\n  } else {\n    return /*#__PURE__*/React.createElement(\"div\", {\n      className: \"alert alert-danger\"\n    }, /*#__PURE__*/React.createElement(\"strong\", null, \"Error!\"), \" Unauthourized action (100)\");\n  }\n}\n\n//# sourceURL=webpack:///./react/VerifyEmail.js?");
 
-        buttonRef.current.disabled = true;
-        setButtonStatus('<span class="spinner-border spinner-border-sm"></span>&nbsp;Wait...');
+/***/ }),
 
-        if (!inputs.checkErrors.includes(1)) {
-            postData('http://localhost:3000/sign-up', new FormData(formRef.current), setResponse);
-        } else {
-            setInputsError(function (inputs) {
-                return Object.assign({}, inputs, { formError: 'Please fill the form completely' });
-            });
-        }
-    };
-    if (response.success === null) {
-        return React.createElement(
-            'div',
-            { className: 'sbox' },
-            React.createElement(
-                'div',
-                { className: 'ftitle' },
-                'Sign Up'
-            ),
-            React.createElement(
-                'div',
-                { className: 'leftoption', onClick: function onClick() {
-                        return props.goTo("login");
-                    } },
-                'Login'
-            ),
-            React.createElement(
-                'div',
-                { className: 'error' },
-                inputs.formError
-            ),
-            React.createElement(
-                'div',
-                { className: 'error' },
-                response.error
-            ),
-            React.createElement(
-                'form',
-                { ref: formRef, onSubmit: submitForm },
-                React.createElement(
-                    'div',
-                    { className: 'form-group' },
-                    React.createElement(
-                        'label',
-                        { 'for': 'name' },
-                        'Your Name:'
-                    ),
-                    React.createElement(
-                        'div',
-                        { className: 'error' },
-                        inputs.nameError
-                    ),
-                    React.createElement('input', { type: 'text', name: 'name', className: 'form-control', placeHolder: 'Enter name', id: 'name', onBlur: validateInput })
-                ),
-                React.createElement(
-                    'div',
-                    { className: 'form-group' },
-                    React.createElement(
-                        'label',
-                        { 'for': 'email' },
-                        'Email address:'
-                    ),
-                    React.createElement(
-                        'div',
-                        { className: 'error' },
-                        inputs.emailError
-                    ),
-                    React.createElement('input', { type: 'email', name: 'email', className: 'form-control', placeHolder: 'Enter email', id: 'email', onBlur: validateInput })
-                ),
-                React.createElement(
-                    'div',
-                    { className: 'form-group' },
-                    React.createElement(
-                        'label',
-                        { 'for': 'pwd' },
-                        'Password:'
-                    ),
-                    React.createElement(
-                        'div',
-                        { className: 'error' },
-                        inputs.passwordError
-                    ),
-                    React.createElement('input', { type: 'password', name: 'password', className: 'form-control', placeHolder: 'Enter password', id: 'pwd', ref: passwordRef, onBlur: validateInput })
-                ),
-                React.createElement(
-                    'div',
-                    { className: 'form-group' },
-                    React.createElement(
-                        'label',
-                        { 'for': 'vpwd' },
-                        'Password:'
-                    ),
-                    React.createElement('input', { type: 'password', name: 'verifyPassword', className: 'form-control', placeHolder: 'Enter password', id: 'vpwd', onBlur: validateInput })
-                ),
-                React.createElement('button', { type: 'submit', className: 'btn btn-primary', ref: buttonRef, dangerouslySetInnerHTML: { __html: buttonStatus } })
-            )
-        );
-    } else {
-        return React.createElement(
-            'div',
-            { className: 'alert alert-success' },
-            React.createElement(
-                'strong',
-                null,
-                'Success!'
-            ),
-            ' ',
-            response.success
-        );
-    }
-}
+/***/ "./react/postData.js":
+/*!***************************!*\
+  !*** ./react/postData.js ***!
+  \***************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-function VerifyEmail(props) {
-    var token = location.pathname.split('/')[2];
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"default\", function() { return postData; });\nfunction ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }\n\nfunction _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }\n\nfunction _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }\n\nfunction postData(url, formData, setResponse) {\n  fetch(url, {\n    method: 'POST',\n    headers: {\n      \"Content-Type\": \"application/x-www-form-urlencoded\",\n      \"Access-Control-Allow-Origin\": \"*\"\n    },\n    body: new URLSearchParams(formData)\n  }).then(function (response) {\n    try {\n      if (response.ok) {\n        return response.json();\n      } else {\n        throw new Error('Network response was not ok');\n      }\n    } catch (error) {\n      setResponse(function (response) {\n        return _objectSpread(_objectSpread({}, response), {}, {\n          error: error\n        });\n      });\n    }\n  }).then(function (data) {\n    if (\"success\" in data) {\n      setResponse(function (response) {\n        return _objectSpread(_objectSpread({}, response), {}, {\n          success: data.success\n        });\n      });\n    } else if (\"error\" in data) {\n      setResponse(function (response) {\n        return _objectSpread(_objectSpread({}, response), {}, {\n          error: data.error\n        });\n      });\n    } else {\n      setResponse(function (response) {\n        return _objectSpread(_objectSpread({}, response), {}, {\n          error: \"An error was encountered (101)\"\n        });\n      });\n    }\n  })[\"catch\"](function (error) {\n    return setResponse(function (response) {\n      return _objectSpread(_objectSpread({}, response), {}, {\n        error: \"An error was encountered (102)\"\n      });\n    });\n  });\n}\n\n//# sourceURL=webpack:///./react/postData.js?");
 
-    var _React$useState9 = React.useState({
-        success: null,
-        error: ''
-    }),
-        _React$useState10 = _slicedToArray(_React$useState9, 2),
-        response = _React$useState10[0],
-        setResponse = _React$useState10[1];
+/***/ })
 
-    if (typeof token !== 'undefined') {
-        var formData = new FormData();
-        formData.append('token', token);
-
-        if (response.success === null && response.error.length === 0) {
-            postData('http://localhost:3000/verify-email', formData, setResponse);
-        }
-
-        if (response.success !== null) {
-            return React.createElement(
-                'div',
-                { className: 'alert alert-success' },
-                React.createElement(
-                    'strong',
-                    null,
-                    'Success!'
-                ),
-                ' Your email has been verified. Click ',
-                React.createElement(
-                    'span',
-                    { onClick: function onClick() {
-                            return props.goTo("login");
-                        } },
-                    'here'
-                ),
-                ' to login.'
-            );
-        } else if (response.error.length > 0) {
-            return React.createElement(
-                'div',
-                { className: 'alert alert-danger' },
-                React.createElement(
-                    'strong',
-                    null,
-                    'Error!'
-                ),
-                ' ',
-                response.error
-            );
-        }
-        return null;
-    } else {
-        return React.createElement(
-            'div',
-            { className: 'alert alert-danger' },
-            React.createElement(
-                'strong',
-                null,
-                'Error!'
-            ),
-            ' Unauthourized action (100)'
-        );
-    }
-}
-
-function Login(props) {
-    var formRef = React.useRef();
-
-    var _React$useState11 = React.useState({
-        success: null,
-        error: ''
-    }),
-        _React$useState12 = _slicedToArray(_React$useState11, 2),
-        response = _React$useState12[0],
-        setResponse = _React$useState12[1];
-
-    var _React$useState13 = React.useState({
-        formError: '',
-        emailError: '',
-        passwordError: '',
-        checkErrors: [1, 1]
-    }),
-        _React$useState14 = _slicedToArray(_React$useState13, 2),
-        inputs = _React$useState14[0],
-        setInputsError = _React$useState14[1];
-
-    var validateInput = function validateInput(e) {
-        var inputValue = e.target.value;
-        var inputField = e.target.id;
-
-        if (inputField === 'email') {
-            if (!/\S+@\S+\.\S+/.test(inputValue)) {
-                inputs.checkErrors[0] = 1;
-                setInputsError(function (inputs) {
-                    return Object.assign({}, inputs, { emailError: 'Your email is invalid', checkErrors: inputs.checkErrors });
-                });
-            } else {
-                inputs.checkErrors[0] = 0;
-                setInputsError(function (inputs) {
-                    return Object.assign({}, inputs, { emailError: '', checkErrors: inputs.checkErrors });
-                });
-            }
-        } else if (inputField === 'pwd') {
-            if (inputField.trim().length > 20 || inputValue.trim().length < 3) {
-                inputs.checkErrors[1] = 1;
-                setInputsError(function (inputs) {
-                    return Object.assign({}, inputs, { passwordError: 'Your password is invalid', checkErrors: inputs.checkErrors });
-                });
-            } else {
-                inputs.checkErrors[1] = 0;
-                setInputsError(function (inputs) {
-                    return Object.assign({}, inputs, { passwordError: '', checkErrors: inputs.checkErrors });
-                });
-            }
-        }
-    };
-    var submitForm = function submitForm(e) {
-        e.preventDefault();
-        if (!inputs.checkErrors.includes(1)) {
-            postData('http://localhost:3000/login', new FormData(formRef.current), setResponse);
-        } else {
-            setInputsError(function (inputs) {
-                return Object.assign({}, inputs, { formError: 'Please fill the form completely' });
-            });
-        }
-    };
-
-    if (response.success === null) {
-        return React.createElement(
-            'div',
-            { className: 'sbox' },
-            React.createElement(
-                'div',
-                { className: 'ftitle' },
-                'Login'
-            ),
-            React.createElement(
-                'div',
-                { className: 'leftoption', onClick: function onClick() {
-                        return props.goTo("sign-up");
-                    } },
-                'Sign Up'
-            ),
-            React.createElement(
-                'form',
-                { ref: formRef, onSubmit: submitForm },
-                React.createElement(
-                    'div',
-                    { className: 'error' },
-                    inputs.formError
-                ),
-                React.createElement(
-                    'div',
-                    { className: 'error' },
-                    inputs.emailError
-                ),
-                React.createElement(
-                    'div',
-                    { className: 'error' },
-                    inputs.passwordError
-                ),
-                React.createElement(
-                    'div',
-                    { className: 'error' },
-                    response.error
-                ),
-                React.createElement(
-                    'div',
-                    { className: 'form-group' },
-                    React.createElement(
-                        'label',
-                        { 'for': 'email' },
-                        'Email address:'
-                    ),
-                    React.createElement('input', { type: 'email', className: 'form-control', name: 'email', placeHolder: 'Enter email', id: 'email', onBlur: validateInput })
-                ),
-                React.createElement(
-                    'div',
-                    { className: 'form-group' },
-                    React.createElement(
-                        'label',
-                        { 'for': 'pwd' },
-                        'Password:'
-                    ),
-                    React.createElement('input', { type: 'password', className: 'form-control', name: 'password', placeHolder: 'Enter password', id: 'pwd', onBlur: validateInput })
-                ),
-                React.createElement(
-                    'button',
-                    { type: 'submit', className: 'btn btn-primary' },
-                    'Login'
-                )
-            )
-        );
-    } else {
-        return React.createElement(
-            'div',
-            { className: 'alert alert-success' },
-            React.createElement(
-                'strong',
-                null,
-                'Success!'
-            ),
-            ' ',
-            response.success
-        );
-    }
-}
-
-function postData(url, formData, setResponse) {
-    fetch(url, {
-        method: 'POST',
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-            "Access-Control-Allow-Origin": "*"
-        },
-        body: new URLSearchParams(formData)
-    }).then(function (response) {
-        try {
-            if (response.ok) {
-                return response.json();
-            } else {
-                throw new Error('Network response was not ok');
-            }
-        } catch (error) {
-            setResponse(function (response) {
-                return Object.assign({}, response, { error: error });
-            });
-        }
-    }).then(function (data) {
-        if ("success" in data) {
-            setResponse(function (response) {
-                return Object.assign({}, response, { success: data.success });
-            });
-        } else if ("error" in data) {
-            setResponse(function (response) {
-                return Object.assign({}, response, { error: data.error });
-            });
-        } else {
-            setResponse(function (response) {
-                return Object.assign({}, response, { error: "An error was encountered (101)" });
-            });
-        }
-    }).catch(function (error) {
-        return setResponse(function (response) {
-            return Object.assign({}, response, { error: "An error was encountered (102)" });
-        });
-    });
-}
-
-ReactDOM.render(React.createElement(App, null), document.getElementById('root'));
-
-window.addEventListener('popstate', function (event) {
-    ReactDOM.render(React.createElement(App, null), document.getElementById('root'));
-});
+/******/ });
