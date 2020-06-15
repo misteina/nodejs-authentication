@@ -18,9 +18,6 @@ To run the test coverage run the following command from the application director
 ```sh
 npm test
 ```
-### Database usage
-
-Since it wasn't stated or required that a full featured database solution should be used, I decided to use a JSON file as a database which I feel is more appriopriate for a sample assesment test. Of course I am fully aware that a JSON file cannot be used as a database in a production environment. It is only for the assesment test.
 
 ### Security and optimization
 
